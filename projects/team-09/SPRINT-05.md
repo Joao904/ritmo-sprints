@@ -79,7 +79,7 @@ Compilação aprovada. **19 testes instrumentados** aprovados no emulador, sem f
 
 ## Entrega
 
-Branch: `team-09/sprint-05`, com destino à `main` do repositório da disciplina.
+Branch: `team-09/sprint-05`. [Pull Request #42](https://github.com/brenofeliix/mobile-development-2026-2/pull/42), com destino à `main` do repositório da disciplina.
 
 ## Definition of Done
 
@@ -88,4 +88,4 @@ Branch: `team-09/sprint-05`, com destino à `main` do repositório da disciplina
 - [x] Gravação, leitura e reinício validados.
 - [x] Funcionalidades anteriores preservadas.
 - [x] Evidências e uso de IA documentados.
-- [ ] PR enviado.
+- [x] PR enviado.
