@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="br.unemat.ritmo.DurationTest" tests="7" failures="0" errors="0" skipped="0" time="10.124" timestamp="2026-09-28T23:01:00" hostname="localhost">
+  <properties>
+    <property name="device" value="Ritmo_API_35(AVD) - 15" />
+    <property name="flavor" value="" />
+    <property name="project" value=":app" />
+  </properties>
+  <testcase name="selectionSurvivesActivityRecreation" classname="br.unemat.ritmo.DurationTest" time="1.977" />
+  <testcase name="defaultAndRepeatedSelectionsUpdateExactlyOneOptionAndSummary" classname="br.unemat.ritmo.DurationTest" time="2.142" />
+  <testcase name="toolbarAndAndroidBackReturnToThePreviousScreen" classname="br.unemat.ritmo.NavigationTest" time="1.541" />
+  <testcase name="allDurationsReachThePlanAndAdjustReturnsWithSelection" classname="br.unemat.ritmo.NavigationTest" time="1.813" />
+  <testcase name="rapidForwardTapsDoNotDuplicateTheDestination" classname="br.unemat.ritmo.NavigationTest" time="0.709" />
+  <testcase name="recreationOnPlanKeepsDestinationAndDuration" classname="br.unemat.ritmo.NavigationTest" time="0.964" />
+  <testcase name="presentationAndPrimaryActionAreVisible" classname="br.unemat.ritmo.WelcomeTest" time="0.479" />
+</testsuite>
