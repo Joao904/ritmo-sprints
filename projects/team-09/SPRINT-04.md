@@ -61,7 +61,6 @@ Os testes de navegação da sprint 3 passaram a preencher o assunto antes de abr
 | LLM/tool used | Claude (Claude Code) |
 | Task supported by the LLM | Especificação, implementação do formulário e das regras, testes, automação da validação e documentação |
 | Main suggestion received | Regras de validação fora da tela (`SessionRules`), testadas sem emulador; mensagens exibidas só após a primeira tentativa; fechar o teclado antes de navegar. |
-| What the team changed manually | Não houve alterações manuais adicionais. |
 | How the result was validated | Testes locais das regras, 14 testes instrumentados no emulador e capturas geradas pelos testes |
 
 ## Entrega

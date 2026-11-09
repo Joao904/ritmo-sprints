@@ -158,7 +158,7 @@ Emulador Pixel 6, Android 15/API 35, x86_64, executado pelo GitHub Actions (Ubun
 
 Utilizamos o Claude na especificação, implementação, testes, automação da validação no GitHub Actions e documentação. A validação incluiu testes locais das regras, testes instrumentados no emulador e capturas de tela geradas pelos testes.
 
-**Principais sugestões aceitas:** manter as regras em `SessionRules`, fora da tela, para testá-las sem emulador e explicá-las em um único lugar; e fechar o teclado ao tocar no botão, porque com o teclado aberto o Voltar do Android fecha o teclado em vez de voltar de tela. Não houve alterações manuais adicionais.
+**Principais sugestões aceitas:** manter as regras em `SessionRules`, fora da tela, para testá-las sem emulador e explicá-las em um único lugar; e fechar o teclado ao tocar no botão, porque com o teclado aberto o Voltar do Android fecha o teclado em vez de voltar de tela.
 
 ## 14. Suggested Prompt for AI Assistance
 
