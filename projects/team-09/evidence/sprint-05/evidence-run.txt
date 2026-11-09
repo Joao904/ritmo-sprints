@@ -1,0 +1,32 @@
+== Sprint04Evidence#invalidInput  (20:45:47 UTC)
+processo do app antes do passo: nenhum (app fechado)
+
+br.unemat.ritmo.Sprint04Evidence:.
+
+Time: 13.873
+
+OK (1 test)
+== Sprint04Evidence#validInput  (20:46:09 UTC)
+processo do app antes do passo: nenhum (app fechado)
+
+br.unemat.ritmo.Sprint04Evidence:.
+
+Time: 20.253
+
+OK (1 test)
+== Sprint05Evidence#createData  (20:46:44 UTC)
+processo do app antes do passo: nenhum (app fechado)
+
+br.unemat.ritmo.Sprint05Evidence:.
+
+Time: 26.246
+
+OK (1 test)
+== Sprint05Evidence#restoreData  (20:47:16 UTC)
+processo do app antes do passo: nenhum (app fechado)
+
+br.unemat.ritmo.Sprint05Evidence:.
+
+Time: 6.664
+
+OK (1 test)

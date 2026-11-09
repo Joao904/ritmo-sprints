@@ -1,0 +1,119 @@
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+> Task :app:generateDebugResValues UP-TO-DATE
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+> Task :app:generateDebugResources UP-TO-DATE
+> Task :app:mergeDebugResources UP-TO-DATE
+> Task :app:packageDebugResources UP-TO-DATE
+> Task :app:parseDebugLocalResources UP-TO-DATE
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+> Task :app:processDebugMainManifest UP-TO-DATE
+> Task :app:processDebugManifest UP-TO-DATE
+> Task :app:processDebugManifestForPackage UP-TO-DATE
+> Task :app:processDebugResources UP-TO-DATE
+> Task :app:kspDebugKotlin UP-TO-DATE
+> Task :app:compileDebugKotlin UP-TO-DATE
+> Task :app:javaPreCompileDebug UP-TO-DATE
+> Task :app:compileDebugJavaWithJavac NO-SOURCE
+> Task :app:bundleDebugClassesToCompileJar UP-TO-DATE
+> Task :app:preDebugAndroidTestBuild SKIPPED
+> Task :app:generateDebugAndroidTestResValues UP-TO-DATE
+> Task :app:checkDebugAndroidTestAarMetadata
+> Task :app:mapDebugAndroidTestSourceSetPaths
+> Task :app:generateDebugAndroidTestResources
+> Task :app:mergeDebugAndroidTestResources
+> Task :app:processDebugAndroidTestManifest
+> Task :app:javaPreCompileDebugAndroidTest
+> Task :app:mergeDebugShaders UP-TO-DATE
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets UP-TO-DATE
+> Task :app:compressDebugAssets UP-TO-DATE
+> Task :app:desugarDebugFileDependencies UP-TO-DATE
+> Task :app:dexBuilderDebug UP-TO-DATE
+> Task :app:mergeDebugGlobalSynthetics UP-TO-DATE
+> Task :app:processDebugJavaRes UP-TO-DATE
+> Task :app:mergeDebugJavaResource UP-TO-DATE
+> Task :app:checkDebugDuplicateClasses UP-TO-DATE
+> Task :app:mergeExtDexDebug UP-TO-DATE
+> Task :app:mergeLibDexDebug UP-TO-DATE
+> Task :app:mergeProjectDexDebug UP-TO-DATE
+> Task :app:mergeDebugJniLibFolders UP-TO-DATE
+> Task :app:mergeDebugNativeLibs UP-TO-DATE
+> Task :app:stripDebugDebugSymbols UP-TO-DATE
+> Task :app:validateSigningDebug UP-TO-DATE
+> Task :app:writeDebugAppMetadata UP-TO-DATE
+> Task :app:writeDebugSigningConfigVersions UP-TO-DATE
+> Task :app:packageDebug UP-TO-DATE
+> Task :app:createDebugApkListingFileRedirect UP-TO-DATE
+> Task :app:mergeDebugAndroidTestShaders
+> Task :app:compileDebugAndroidTestShaders NO-SOURCE
+> Task :app:generateDebugAndroidTestAssets UP-TO-DATE
+> Task :app:processDebugAndroidTestResources
+> Task :app:mergeDebugAndroidTestAssets
+> Task :app:compressDebugAndroidTestAssets
+> Task :app:desugarDebugAndroidTestFileDependencies
+> Task :app:checkDebugAndroidTestDuplicateClasses
+> Task :app:kspDebugAndroidTestKotlin
+> Task :app:mergeExtDexDebugAndroidTest
+> Task :app:mergeLibDexDebugAndroidTest
+> Task :app:mergeDebugAndroidTestJniLibFolders
+> Task :app:mergeDebugAndroidTestNativeLibs NO-SOURCE
+> Task :app:stripDebugAndroidTestDebugSymbols NO-SOURCE
+> Task :app:validateSigningDebugAndroidTest
+> Task :app:writeDebugAndroidTestSigningConfigVersions
+> Task :app:compileDebugAndroidTestKotlin
+> Task :app:compileDebugAndroidTestJavaWithJavac NO-SOURCE
+> Task :app:dexBuilderDebugAndroidTest
+> Task :app:mergeDebugAndroidTestGlobalSynthetics
+> Task :app:processDebugAndroidTestJavaRes
+> Task :app:mergeProjectDexDebugAndroidTest
+> Task :app:mergeDebugAndroidTestJavaResource
+> Task :app:packageDebugAndroidTest
+> Task :app:createDebugAndroidTestApkListingFileRedirect
+[EmulatorConsole]: Failed to start Emulator console for 5554
+> Task :app:connectedDebugAndroidTest
+Starting 23 tests on emulator-5554 - 15
+
+emulator-5554 - 15 Tests 0/23 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 1/23 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 2/23 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 3/23 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 4/23 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 5/23 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 6/23 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 7/23 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 8/23 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 9/23 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 11/23 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 12/23 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 13/23 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 14/23 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 15/23 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 16/23 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 18/23 completed. (0 skipped) (0 failed)
+
+> Task :app:connectedDebugAndroidTest
+
+br.unemat.ritmo.Sprint04Evidence > validInput[emulator-5554 - 15] [33mSKIPPED [0m
+
+br.unemat.ritmo.Sprint04Evidence > invalidInput[emulator-5554 - 15] [33mSKIPPED [0m
+
+emulator-5554 - 15 Tests 22/23 completed. (2 skipped) (0 failed)
+
+> Task :app:connectedDebugAndroidTest
+
+br.unemat.ritmo.Sprint05Evidence > restoreData[emulator-5554 - 15] [33mSKIPPED [0m
+
+br.unemat.ritmo.Sprint05Evidence > createData[emulator-5554 - 15] [33mSKIPPED [0m
+
+emulator-5554 - 15 Tests 26/23 completed. (4 skipped) (0 failed)
+emulator-5554 - 15 Tests 27/23 completed. (4 skipped) (0 failed)
+Finished 27 tests on emulator-5554 - 15
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__reactivecircus_android-emulator-runner-1794256780375.json
+
+BUILD SUCCESSFUL in 5m 53s
+65 actionable tasks: 27 executed, 38 up-to-date
