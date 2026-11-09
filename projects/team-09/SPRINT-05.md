@@ -75,7 +75,6 @@ Compilação aprovada. **19 testes instrumentados** aprovados no emulador, sem f
 | LLM/tool used | Claude (Claude Code) |
 | Task supported by the LLM | Comparação Room × DataStore, modelo de dados, implementação, testes, automação da validação e documentação |
 | Main suggestion received | Room para a lista de sessões; banco isolado atrás de `SessionRepository`; leitura por Flow com `collectAsState`; botão desabilitado após o primeiro toque. |
-| What the team changed manually | Não houve alterações manuais adicionais. |
 | How the result was validated | 19 testes instrumentados, testes locais e execução em dois processos separados (criar → encerrar → reabrir) com capturas |
 
 ## Entrega

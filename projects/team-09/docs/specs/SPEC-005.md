@@ -170,7 +170,7 @@ Emulador Pixel 6, Android 15/API 35, x86_64, executado pelo GitHub Actions (Ubun
 
 Utilizamos o Claude na comparação entre Room e DataStore, no modelo de dados, na implementação, nos testes, na automação da validação e na documentação. A validação incluiu testes instrumentados e a execução em dois processos separados para comprovar a leitura após o reinício.
 
-**Principais sugestões aceitas:** usar Room por se tratar de uma lista de registros; isolar o banco atrás de `SessionRepository`; desabilitar o botão depois do primeiro toque para evitar sessões duplicadas. Não houve alterações manuais adicionais.
+**Principais sugestões aceitas:** usar Room por se tratar de uma lista de registros; isolar o banco atrás de `SessionRepository`; desabilitar o botão depois do primeiro toque para evitar sessões duplicadas.
 
 ## 17. Deliverables
 
