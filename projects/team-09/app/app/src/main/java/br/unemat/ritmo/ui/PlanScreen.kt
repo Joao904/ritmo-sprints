@@ -13,7 +13,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun PlanScreen(selectedMinutes: Int, onBack: () -> Unit, modifier: Modifier = Modifier) {
+fun PlanScreen(
+    selectedMinutes: Int,
+    subject: String,
+    goal: String,
+    onBack: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Scaffold(containerColor = Paper) { padding ->
         Column(
             modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(24.dp),
@@ -32,11 +38,14 @@ fun PlanScreen(selectedMinutes: Int, onBack: () -> Unit, modifier: Modifier = Mo
                 Column(Modifier.fillMaxWidth().padding(24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     Text("TEMPO DE CONCENTRAÇÃO", color = Lime, style = MaterialTheme.typography.labelMedium)
                     Text("$selectedMinutes minutos", color = Color.White, style = MaterialTheme.typography.headlineLarge)
-                    Text("Um assunto por vez é suficiente.", color = Color(0xFFD6E3DD))
+                    Text("Assunto: $subject", color = Color.White, style = MaterialTheme.typography.titleMedium)
+                    if (goal.isNotEmpty()) {
+                        Text("Objetivo: $goal", color = Color(0xFFD6E3DD))
+                    }
                 }
             }
             Text("Um roteiro simples", style = MaterialTheme.typography.titleLarge)
-            PlanStep("01", "Prepare seu espaço", "Separe o material e escolha um único assunto para estudar.")
+            PlanStep("01", "Prepare seu espaço", "Separe o material de $subject e deixe o resto de lado.")
             PlanStep("02", "Concentre-se", "Dedique os $selectedMinutes minutos escolhidos ao assunto, respeitando seu ritmo.")
             PlanStep("03", "Faça uma pausa", "Ao terminar, levante-se, respire e reconheça o que aprendeu.")
             OutlinedButton(onClick = onBack, modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp), shape = RoundedCornerShape(18.dp)) {
@@ -64,4 +73,4 @@ private fun PlanStep(number: String, title: String, description: String) {
 
 @Preview(showBackground = true)
 @Composable
-private fun PlanPreview() { RitmoTheme { PlanScreen(25, {}) } }
+private fun PlanPreview() { RitmoTheme { PlanScreen(25, "Cálculo I", "resolver 5 exercícios", {}) } }

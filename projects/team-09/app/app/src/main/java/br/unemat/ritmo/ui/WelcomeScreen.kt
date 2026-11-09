@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -17,12 +18,17 @@ import androidx.compose.ui.unit.dp
 fun WelcomeScreen(
     selectedMinutes: Int,
     onSelect: (Int) -> Unit,
+    subject: String,
+    goal: String,
+    showErrors: Boolean,
+    onSubjectChange: (String) -> Unit,
+    onGoalChange: (String) -> Unit,
     onPlan: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(containerColor = Paper) { padding ->
         Column(
-            modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(24.dp),
+            modifier.fillMaxSize().padding(padding).imePadding().verticalScroll(rememberScrollState()).padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
             Brand()
@@ -34,7 +40,16 @@ fun WelcomeScreen(
             }
             FocusCard()
             DurationPicker(selectedMinutes = selectedMinutes, onSelect = onSelect)
-            Button(onClick = onPlan, modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp), shape = RoundedCornerShape(18.dp)) {
+            SessionForm(
+                subject = subject,
+                goal = goal,
+                showErrors = showErrors,
+                onSubjectChange = onSubjectChange,
+                onGoalChange = onGoalChange
+            )
+            val focusManager = LocalFocusManager.current
+            // Clearing focus closes the keyboard before validating/navigating.
+            Button(onClick = { focusManager.clearFocus(); onPlan() }, modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp), shape = RoundedCornerShape(18.dp)) {
                 Text("Planejar meu estudo", style = MaterialTheme.typography.titleMedium)
             }
             Text("Seu tempo. Seu próximo passo.", style = MaterialTheme.typography.labelMedium, color = Muted)
@@ -74,4 +89,6 @@ private fun FocusCard() {
 
 @Preview(showBackground = true)
 @Composable
-private fun WelcomePreview() { RitmoTheme { WelcomeScreen(25, {}, {}) } }
+private fun WelcomePreview() {
+    RitmoTheme { WelcomeScreen(25, {}, "Cálculo I", "", false, {}, {}, {}) }
+}
