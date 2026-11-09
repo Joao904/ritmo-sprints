@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="br.unemat.ritmo.DurationTest" tests="16" failures="0" errors="0" skipped="2" time="172.771" timestamp="2026-11-09T19:57:21" hostname="localhost">
+  <properties>
+    <property name="device" value="emulator-5554 - 15" />
+    <property name="flavor" value="" />
+    <property name="project" value=":app" />
+  </properties>
+  <testcase name="selectionSurvivesActivityRecreation" classname="br.unemat.ritmo.DurationTest" time="22.514" />
+  <testcase name="defaultAndRepeatedSelectionsUpdateExactlyOneOptionAndSummary" classname="br.unemat.ritmo.DurationTest" time="13.647" />
+  <testcase name="validInputWithoutGoalIsAccepted" classname="br.unemat.ritmo.FormTest" time="13.354" />
+  <testcase name="typedValuesSurviveBackNavigationAndRecreation" classname="br.unemat.ritmo.FormTest" time="13.771" />
+  <testcase name="longSubjectAndGoalShowMaximumErrors" classname="br.unemat.ritmo.FormTest" time="10.678" />
+  <testcase name="emptySubjectShowsErrorAndStaysOnHome" classname="br.unemat.ritmo.FormTest" time="4.596" />
+  <testcase name="validInputOpensPlanWithSubjectAndGoal" classname="br.unemat.ritmo.FormTest" time="9.937" />
+  <testcase name="errorDisappearsWhenInputIsCorrected" classname="br.unemat.ritmo.FormTest" time="10.331" />
+  <testcase name="shortSubjectShowsMinimumError" classname="br.unemat.ritmo.FormTest" time="10.255" />
+  <testcase name="toolbarAndAndroidBackReturnToThePreviousScreen" classname="br.unemat.ritmo.NavigationTest" time="12.802" />
+  <testcase name="allDurationsReachThePlanAndAdjustReturnsWithSelection" classname="br.unemat.ritmo.NavigationTest" time="14.487" />
+  <testcase name="rapidForwardTapsDoNotDuplicateTheDestination" classname="br.unemat.ritmo.NavigationTest" time="7.488" />
+  <testcase name="recreationOnPlanKeepsDestinationAndDuration" classname="br.unemat.ritmo.NavigationTest" time="7.965" />
+  <testcase name="validInput" classname="br.unemat.ritmo.Sprint04Evidence" time="2.912">
+    <skipped />
+  </testcase>
+  <testcase name="invalidInput" classname="br.unemat.ritmo.Sprint04Evidence" time="5.547">
+    <skipped />
+  </testcase>
+  <testcase name="presentationAndPrimaryActionAreVisible" classname="br.unemat.ritmo.WelcomeTest" time="6.465" />
+</testsuite>
