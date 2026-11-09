@@ -2,6 +2,7 @@ package br.unemat.ritmo
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.test.espresso.Espresso.closeSoftKeyboard
 import androidx.test.espresso.Espresso.pressBack
 import org.junit.Rule
 import org.junit.Test
@@ -9,8 +10,15 @@ import org.junit.Test
 class NavigationTest {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
 
+    // Sprint 04: the plan only opens with a valid subject.
+    private fun fillSubject() {
+        compose.onNodeWithText("Assunto").performScrollTo().performTextReplacement("Cálculo I")
+        closeSoftKeyboard()
+    }
+
     private fun openPlan(minutes: Int) {
         compose.onNodeWithText("$minutes min").performScrollTo().performClick()
+        fillSubject()
         compose.onNodeWithText("Planejar meu estudo").performScrollTo().performClick()
         compose.onNodeWithText("Seu plano").assertIsDisplayed()
         compose.onNodeWithText("$minutes minutos").assertIsDisplayed()
@@ -38,6 +46,7 @@ class NavigationTest {
     }
 
     @Test fun rapidForwardTapsDoNotDuplicateTheDestination() {
+        fillSubject()
         compose.onNodeWithText("Planejar meu estudo").performScrollTo().performTouchInput { doubleClick() }
         compose.onNodeWithText("Seu plano").assertIsDisplayed()
         pressBack()
