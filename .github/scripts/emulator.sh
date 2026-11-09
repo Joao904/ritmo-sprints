@@ -8,11 +8,11 @@ RUNNER=br.unemat.ritmo.test/androidx.test.runner.AndroidJUnitRunner
 mkdir -p "$OUT/evidence"
 
 # Fuso de Mato Grosso, para as datas do histórico saírem no horário local.
-adb root || true
-adb wait-for-device
-adb shell setprop persist.sys.timezone America/Cuiaba || true
+# (sem "adb root": reiniciar o adbd deixou a janela do app sem foco nos testes)
 adb shell cmd alarm set-timezone America/Cuiaba || true
 adb shell date | tee "$OUT/device-date.txt"
+# Fecha qualquer diálogo do sistema que possa tirar o foco do app.
+adb shell am broadcast -a android.intent.action.CLOSE_SYSTEM_DIALOGS || true
 adb shell getprop ro.product.model | tee "$OUT/device.txt"
 adb shell getprop ro.build.version.release | tee -a "$OUT/device.txt"
 adb shell getprop ro.build.version.sdk | tee -a "$OUT/device.txt"
