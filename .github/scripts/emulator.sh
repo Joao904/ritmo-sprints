@@ -7,21 +7,21 @@ APP=br.unemat.ritmo
 RUNNER=br.unemat.ritmo.test/androidx.test.runner.AndroidJUnitRunner
 mkdir -p "$OUT/evidence"
 
-# Fuso de Mato Grosso, para as datas do histórico saírem no horário local.
-# (sem "adb root": reiniciar o adbd deixou a janela do app sem foco nos testes)
-adb shell cmd alarm set-timezone America/Cuiaba || true
-adb shell date | tee "$OUT/device-date.txt"
-# Fecha qualquer diálogo do sistema que possa tirar o foco do app.
-adb shell am broadcast -a android.intent.action.CLOSE_SYSTEM_DIALOGS || true
 adb shell getprop ro.product.model | tee "$OUT/device.txt"
 adb shell getprop ro.build.version.release | tee -a "$OUT/device.txt"
 adb shell getprop ro.build.version.sdk | tee -a "$OUT/device.txt"
 
 # 1) Todos os testes instrumentados (as classes *Evidence são ignoradas aqui).
-./gradlew connectedDebugAndroidTest --console=plain 2>&1 | tee "$OUT/connected-tests.txt"
+status=0
+./gradlew connectedDebugAndroidTest --console=plain 2>&1 | tee "$OUT/connected-tests.txt" || status=$?
 find app/build/outputs/androidTest-results -name 'TEST-*.xml' -exec cp {} "$OUT/" \; || true
+[ "$status" -eq 0 ] || { echo "Testes instrumentados falharam"; exit "$status"; }
 
 # 2) Evidências: cada passo roda em um processo novo do app.
+# O fuso de Mato Grosso só é aplicado aqui, para as datas do histórico saírem no horário local
+# (trocá-lo antes dos testes deixou alguns deles instáveis).
+adb shell cmd alarm set-timezone America/Cuiaba || true
+adb shell date | tee "$OUT/device-date.txt"
 ./gradlew installDebug installDebugAndroidTest --console=plain
 LOG="$OUT/evidence-run.txt"
 : > "$LOG"
