@@ -5,7 +5,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,8 +18,11 @@ fun PlanScreen(
     subject: String,
     goal: String,
     onBack: () -> Unit,
+    onSave: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    // Disables the button after the first tap, so a double tap cannot save twice.
+    var saved by remember { mutableStateOf(false) }
     Scaffold(containerColor = Paper) { padding ->
         Column(
             modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(24.dp),
@@ -48,6 +51,14 @@ fun PlanScreen(
             PlanStep("01", "Prepare seu espaço", "Separe o material de $subject e deixe o resto de lado.")
             PlanStep("02", "Concentre-se", "Dedique os $selectedMinutes minutos escolhidos ao assunto, respeitando seu ritmo.")
             PlanStep("03", "Faça uma pausa", "Ao terminar, levante-se, respire e reconheça o que aprendeu.")
+            Button(
+                onClick = { saved = true; onSave() },
+                enabled = !saved,
+                modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp),
+                shape = RoundedCornerShape(18.dp)
+            ) {
+                Text("Salvar no histórico", style = MaterialTheme.typography.titleMedium)
+            }
             OutlinedButton(onClick = onBack, modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp), shape = RoundedCornerShape(18.dp)) {
                 Text("Ajustar duração", style = MaterialTheme.typography.titleMedium)
             }
@@ -73,4 +84,4 @@ private fun PlanStep(number: String, title: String, description: String) {
 
 @Preview(showBackground = true)
 @Composable
-private fun PlanPreview() { RitmoTheme { PlanScreen(25, "Cálculo I", "resolver 5 exercícios", {}) } }
+private fun PlanPreview() { RitmoTheme { PlanScreen(25, "Cálculo I", "resolver 5 exercícios", {}, {}) } }

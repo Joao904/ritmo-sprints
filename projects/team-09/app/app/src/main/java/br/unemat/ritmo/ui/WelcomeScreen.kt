@@ -7,6 +7,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import br.unemat.ritmo.data.HistorySummary
+import br.unemat.ritmo.data.StudySession
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,9 +27,12 @@ fun WelcomeScreen(
     onSubjectChange: (String) -> Unit,
     onGoalChange: (String) -> Unit,
     onPlan: () -> Unit,
+    summary: HistorySummary,
+    sessions: List<StudySession>,
+    snackbarHostState: SnackbarHostState,
     modifier: Modifier = Modifier
 ) {
-    Scaffold(containerColor = Paper) { padding ->
+    Scaffold(containerColor = Paper, snackbarHost = { SnackbarHost(snackbarHostState) }) { padding ->
         Column(
             modifier.fillMaxSize().padding(padding).imePadding().verticalScroll(rememberScrollState()).padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp)
@@ -53,6 +59,7 @@ fun WelcomeScreen(
                 Text("Planejar meu estudo", style = MaterialTheme.typography.titleMedium)
             }
             Text("Seu tempo. Seu próximo passo.", style = MaterialTheme.typography.labelMedium, color = Muted)
+            HistorySection(summary = summary, sessions = sessions)
         }
     }
 }
@@ -90,5 +97,12 @@ private fun FocusCard() {
 @Preview(showBackground = true)
 @Composable
 private fun WelcomePreview() {
-    RitmoTheme { WelcomeScreen(25, {}, "Cálculo I", "", false, {}, {}, {}) }
+    RitmoTheme {
+        WelcomeScreen(
+            25, {}, "Cálculo I", "", false, {}, {}, {},
+            summary = HistorySummary(1, 25),
+            sessions = listOf(StudySession(1, "Cálculo I", "resolver 5 exercícios", 25, 0L)),
+            snackbarHostState = remember { SnackbarHostState() }
+        )
+    }
 }
