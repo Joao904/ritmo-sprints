@@ -65,7 +65,7 @@ Os testes de navegação da sprint 3 passaram a preencher o assunto antes de abr
 
 ## Entrega
 
-Branch: `team-09/sprint-04`, com destino à `main` do repositório da disciplina.
+Branch: `team-09/sprint-04`. [Pull Request #41](https://github.com/brenofeliix/mobile-development-2026-2/pull/41), com destino à `main` do repositório da disciplina.
 
 ## Definition of Done
 
@@ -74,4 +74,4 @@ Branch: `team-09/sprint-04`, com destino à `main` do repositório da disciplina
 - [x] Validação implementada.
 - [x] Cenários válido e inválido testados.
 - [x] Evidências e uso de IA documentados.
-- [ ] PR enviado.
+- [x] PR enviado.
