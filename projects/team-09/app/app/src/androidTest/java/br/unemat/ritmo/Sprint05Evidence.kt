@@ -33,20 +33,30 @@ class Sprint05Evidence {
         ClearDatabaseRule.clear()
         planAndSave(25, "Anatomia", "")
         waitForText("1 sessão salva · 25 minutos no total")
-        // The confirmation snackbar covers the bottom of the screen; wait for it to go away.
-        compose.waitUntil(10_000) {
-            compose.onAllNodesWithText("Sessão salva no histórico.").fetchSemanticsNodes().isEmpty()
-        }
+        waitForSnackbarToHide()
         planAndSave(45, "Cálculo I — limites", "resolver 5 exercícios")
         waitForText("2 sessões salvas · 70 minutos no total")
-        compose.onNodeWithText("Anatomia").performScrollTo()
+        waitForSnackbarToHide()
+        scrollToBottom()
         Evidence.screenshot("data-created")
     }
 
     @Test fun restoreData() {
         waitForText("2 sessões salvas · 70 minutos no total")
         compose.onNodeWithText("Cálculo I — limites").assertExists()
-        compose.onNodeWithText("Anatomia").performScrollTo()
+        compose.onNodeWithText("Anatomia").assertExists()
+        scrollToBottom()
         Evidence.screenshot("data-restored")
+    }
+
+    // The confirmation snackbar covers the bottom of the screen; wait for it to go away.
+    private fun waitForSnackbarToHide() = compose.waitUntil(10_000) {
+        compose.onAllNodesWithText("Sessão salva no histórico.").fetchSemanticsNodes().isEmpty()
+    }
+
+    // Shows the whole history (both sessions) in the capture.
+    private fun scrollToBottom() {
+        repeat(3) { compose.onNode(hasScrollAction()).performTouchInput { swipeUp() } }
+        compose.waitForIdle()
     }
 }

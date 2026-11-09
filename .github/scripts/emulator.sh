@@ -7,7 +7,12 @@ APP=br.unemat.ritmo
 RUNNER=br.unemat.ritmo.test/androidx.test.runner.AndroidJUnitRunner
 mkdir -p "$OUT/evidence"
 
+# Fuso de Mato Grosso, para as datas do histórico saírem no horário local.
+adb root || true
+adb wait-for-device
 adb shell setprop persist.sys.timezone America/Cuiaba || true
+adb shell cmd alarm set-timezone America/Cuiaba || true
+adb shell date | tee "$OUT/device-date.txt"
 adb shell getprop ro.product.model | tee "$OUT/device.txt"
 adb shell getprop ro.build.version.release | tee -a "$OUT/device.txt"
 adb shell getprop ro.build.version.sdk | tee -a "$OUT/device.txt"
