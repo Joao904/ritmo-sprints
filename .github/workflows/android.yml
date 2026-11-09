@@ -9,7 +9,7 @@ on:
 env:
   # Passos de evidência executados em processos separados, na ordem
   # (o app é encerrado entre um passo e outro).
-  EVIDENCE_STEPS: "Sprint04Evidence#invalidInput Sprint04Evidence#validInput"
+  EVIDENCE_STEPS: "Sprint04Evidence#invalidInput Sprint04Evidence#validInput Sprint05Evidence#createData Sprint05Evidence#restoreData"
 
 jobs:
   validate:
