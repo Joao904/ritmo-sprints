@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun WelcomeScreen(
-    selectedMinutes: Int,
-    onSelect: (Int) -> Unit,
+    minutesText: String,
+    onMinutesChange: (String) -> Unit,
     subject: String,
     goal: String,
     showErrors: Boolean,
@@ -45,7 +45,7 @@ fun WelcomeScreen(
                     style = MaterialTheme.typography.bodyLarge, color = Muted)
             }
             FocusCard()
-            DurationPicker(selectedMinutes = selectedMinutes, onSelect = onSelect)
+            DurationPicker(minutesText = minutesText, showErrors = showErrors, onMinutesChange = onMinutesChange)
             SessionForm(
                 subject = subject,
                 goal = goal,
@@ -99,7 +99,7 @@ private fun FocusCard() {
 private fun WelcomePreview() {
     RitmoTheme {
         WelcomeScreen(
-            25, {}, "Cálculo I", "", false, {}, {}, {},
+            "25", {}, "Cálculo I", "", false, {}, {}, {},
             summary = HistorySummary(1, 25),
             sessions = listOf(StudySession(1, "Cálculo I", "resolver 5 exercícios", 25, 0L)),
             snackbarHostState = remember { SnackbarHostState() }

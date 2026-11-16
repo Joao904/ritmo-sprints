@@ -18,7 +18,9 @@ private const val PLAN = "plano"
 fun RitmoApp(repository: SessionRepository) {
     val navController = rememberNavController()
     // Shared by both destinations; returning from the plan preserves the choice.
-    var selectedMinutes by rememberSaveable { mutableStateOf(25) }
+    // Sprint 06: the student types the duration; it is kept as text while being edited.
+    var minutesText by rememberSaveable { mutableStateOf(SessionRules.MINUTES_DEFAULT.toString()) }
+    val selectedMinutes = minutesText.toIntOrNull() ?: SessionRules.MINUTES_DEFAULT
     // Form state (Sprint 04): the text fields only show what is stored here.
     var subject by rememberSaveable { mutableStateOf("") }
     var goal by rememberSaveable { mutableStateOf("") }
@@ -33,8 +35,8 @@ fun RitmoApp(repository: SessionRepository) {
     NavHost(navController = navController, startDestination = HOME) {
         composable(HOME) {
             WelcomeScreen(
-                selectedMinutes = selectedMinutes,
-                onSelect = { selectedMinutes = it },
+                minutesText = minutesText,
+                onMinutesChange = { minutesText = it },
                 subject = subject,
                 goal = goal,
                 showErrors = showErrors,
@@ -42,7 +44,7 @@ fun RitmoApp(repository: SessionRepository) {
                 onGoalChange = { goal = it },
                 onPlan = {
                     // Invalid input: show the messages and stay on this screen.
-                    if (SessionRules.isValid(subject, goal)) {
+                    if (SessionRules.isValid(subject, goal, minutesText)) {
                         navController.navigate(PLAN) { launchSingleTop = true }
                     } else {
                         showErrors = true
