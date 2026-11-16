@@ -11,6 +11,10 @@ adb shell getprop ro.product.model | tee "$OUT/device.txt"
 adb shell getprop ro.build.version.release | tee -a "$OUT/device.txt"
 adb shell getprop ro.build.version.sdk | tee -a "$OUT/device.txt"
 
+# Janelas de erro do sistema (ex.: "System UI não está respondendo") roubam o foco e derrubam os testes.
+adb shell settings put global hide_error_dialogs 1 || true
+adb shell input keyevent 82 || true
+
 # 1) Todos os testes instrumentados (as classes *Evidence são ignoradas aqui).
 status=0
 ./gradlew connectedDebugAndroidTest --console=plain 2>&1 | tee "$OUT/connected-tests.txt" || status=$?
