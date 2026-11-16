@@ -31,6 +31,12 @@ class HistoryTest {
         compose.onNodeWithText("Salvar no histórico").performScrollTo().performClick()
     }
 
+    /** A mensagem "Sessão salva" cobre o fim da tela por alguns segundos: espera ela sumir antes de tocar lá. */
+    private fun waitForSavedMessageToClose() {
+        waitForText("Sessão salva no histórico.")
+        compose.waitUntil(10_000) { compose.onAllNodesWithText("Sessão salva no histórico.").fetchSemanticsNodes().isEmpty() }
+    }
+
     @Test fun emptyHistoryShowsHint() {
         compose.onNodeWithText("Seu histórico").performScrollTo().assertIsDisplayed()
         compose.onNodeWithText("Nenhuma sessão salva ainda.", substring = true).assertExists()
@@ -64,7 +70,7 @@ class HistoryTest {
 
     @Test fun deleteRemovesTheSessionAndUndoBringsItBack() {
         planAndSave(45, "Bioquímica")
-        waitForText("1 sessão salva · 45 minutos no total")
+        waitForSavedMessageToClose()
         compose.onNodeWithContentDescription("Excluir Bioquímica").performScrollTo().performClick()
         waitForText("Nenhuma sessão salva", substring = true)
         compose.onNodeWithText("Bioquímica").assertDoesNotExist()
@@ -77,6 +83,7 @@ class HistoryTest {
         compose.onNodeWithText("0 min de 5 h").performScrollTo().assertIsDisplayed()
         planAndSave(45, "Bioquímica")
         waitForText("45 min de 5 h")
+        waitForSavedMessageToClose()
         compose.onNodeWithText("Faltam 4 h 15 min nesta semana.").assertExists()
         compose.onNodeWithText("+ 30 min").performScrollTo().performClick()
         compose.onNodeWithText("45 min de 5 h 30 min").assertExists()
