@@ -1,0 +1,48 @@
+== Sprint04Evidence#invalidInput  (16:59:07 UTC)
+processo do app antes do passo: nenhum (app fechado)
+
+br.unemat.ritmo.Sprint04Evidence:.
+
+Time: 3.569
+
+OK (1 test)
+== Sprint04Evidence#validInput  (16:59:13 UTC)
+processo do app antes do passo: nenhum (app fechado)
+
+br.unemat.ritmo.Sprint04Evidence:.
+
+Time: 6.224
+
+OK (1 test)
+== Sprint05Evidence#createData  (16:59:22 UTC)
+processo do app antes do passo: nenhum (app fechado)
+
+br.unemat.ritmo.Sprint05Evidence:.
+
+Time: 14.865
+
+OK (1 test)
+== Sprint05Evidence#restoreData  (16:59:39 UTC)
+processo do app antes do passo: nenhum (app fechado)
+
+br.unemat.ritmo.Sprint05Evidence:.
+
+Time: 3.299
+
+OK (1 test)
+== Sprint06Evidence#notificationDenied  (16:59:45 UTC)
+processo do app antes do passo: nenhum (app fechado)
+
+br.unemat.ritmo.Sprint06Evidence:.
+
+Time: 7.546
+
+OK (1 test)
+== Sprint06Evidence#notificationAllowed  (16:59:54 UTC)
+processo do app antes do passo: nenhum (app fechado)
+
+br.unemat.ritmo.Sprint06Evidence:.
+
+Time: 9.918
+
+OK (1 test)
