@@ -64,6 +64,22 @@ class ReminderTest {
         assertEquals(WorkInfo.State.CANCELLED, reminderState())
     }
 
+    @Test fun reminderFollowsTheTimer() {
+        openPlan("30")
+        compose.onNodeWithText("Avisar quando acabar").performScrollTo().performClick()
+        compose.onNodeWithText("Aviso marcado para", substring = true).assertExists()
+        compose.onNodeWithText("Começar").performScrollTo().performClick()
+        assertEquals(WorkInfo.State.ENQUEUED, reminderState())
+
+        // Pausar o cronômetro pausa o aviso; continuar marca de novo.
+        compose.onNodeWithText("Pausar").performClick()
+        compose.onNodeWithText("Aviso pausado junto com o cronômetro.").performScrollTo().assertIsDisplayed()
+        assertEquals(WorkInfo.State.CANCELLED, reminderState())
+        compose.onNodeWithText("Continuar").performScrollTo().performClick()
+        compose.onNodeWithText("Aviso marcado para", substring = true).performScrollTo().assertIsDisplayed()
+        assertEquals(WorkInfo.State.ENQUEUED, reminderState())
+    }
+
     @Test fun schedulingAgainReplacesThePreviousReminder() {
         SessionReminder.schedule(context, "Física", 20)
         SessionReminder.schedule(context, "Química", 40)

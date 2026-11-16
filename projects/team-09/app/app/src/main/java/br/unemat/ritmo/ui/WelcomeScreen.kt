@@ -29,6 +29,10 @@ fun WelcomeScreen(
     onPlan: () -> Unit,
     summary: HistorySummary,
     sessions: List<StudySession>,
+    weekMinutes: Int,
+    weeklyGoal: Int,
+    onGoalChange: (Int) -> Unit,
+    onDelete: (StudySession) -> Unit,
     snackbarHostState: SnackbarHostState,
     modifier: Modifier = Modifier
 ) {
@@ -59,7 +63,14 @@ fun WelcomeScreen(
                 Text("Planejar meu estudo", style = MaterialTheme.typography.titleMedium)
             }
             Text("Seu tempo. Seu próximo passo.", style = MaterialTheme.typography.labelMedium, color = Muted)
-            HistorySection(summary = summary, sessions = sessions)
+            HistorySection(
+                summary = summary,
+                sessions = sessions,
+                weekMinutes = weekMinutes,
+                weeklyGoal = weeklyGoal,
+                onGoalChange = onGoalChange,
+                onDelete = onDelete
+            )
         }
     }
 }
@@ -102,6 +113,7 @@ private fun WelcomePreview() {
             "25", {}, "Cálculo I", "", false, {}, {}, {},
             summary = HistorySummary(1, 25),
             sessions = listOf(StudySession(1, "Cálculo I", "resolver 5 exercícios", 25, 0L)),
+            weekMinutes = 25, weeklyGoal = 300, onGoalChange = {}, onDelete = {},
             snackbarHostState = remember { SnackbarHostState() }
         )
     }

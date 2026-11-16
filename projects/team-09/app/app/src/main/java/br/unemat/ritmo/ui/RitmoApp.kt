@@ -1,14 +1,19 @@
 package br.unemat.ritmo.ui
 
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import br.unemat.ritmo.data.GoalStore
 import br.unemat.ritmo.data.HistorySummary
 import br.unemat.ritmo.data.SessionRepository
 import br.unemat.ritmo.model.SessionRules
+import br.unemat.ritmo.model.WeeklyGoal
 import kotlinx.coroutines.launch
 
 private const val HOME = "inicio"
@@ -27,8 +32,14 @@ fun RitmoApp(repository: SessionRepository) {
     var showErrors by rememberSaveable { mutableStateOf(false) }
 
     // Persistent data (Sprint 05): read from Room; the UI updates whenever the table changes.
-    val sessions by repository.recentSessions.collectAsState(initial = emptyList())
+    val sessions by repository.sessions.collectAsState(initial = emptyList())
     val summary by repository.summary.collectAsState(initial = HistorySummary(0, 0))
+    // Meta da semana: minutos salvos desde segunda-feira e a meta escolhida pelo estudante.
+    val weekStart = remember { WeeklyGoal.startOfWeek(System.currentTimeMillis()) }
+    val weekMinutes by remember(weekStart) { repository.minutesSince(weekStart) }.collectAsState(initial = 0)
+    val context = LocalContext.current
+    val goalStore = remember { GoalStore(context) }
+    var weeklyGoal by remember { mutableIntStateOf(goalStore.get()) }
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -52,6 +63,18 @@ fun RitmoApp(repository: SessionRepository) {
                 },
                 summary = summary,
                 sessions = sessions,
+                weekMinutes = weekMinutes,
+                weeklyGoal = weeklyGoal,
+                onGoalChange = { weeklyGoal = it; goalStore.set(it) },
+                onDelete = { session ->
+                    scope.launch {
+                        repository.delete(session)
+                        val result = snackbarHostState.showSnackbar(
+                            "Sessão excluída.", actionLabel = "Desfazer", duration = SnackbarDuration.Short
+                        )
+                        if (result == SnackbarResult.ActionPerformed) repository.restore(session)
+                    }
+                },
                 snackbarHostState = snackbarHostState
             )
         }

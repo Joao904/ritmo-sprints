@@ -4,12 +4,15 @@ import kotlinx.coroutines.flow.Flow
 
 /**
  * Ponto único que a interface usa para salvar e ler o histórico.
- * A tela não conhece o Room: ela só chama save() e observa os Flows.
+ * A tela não conhece o Room: ela só chama as funções e observa os Flows.
  */
 class SessionRepository(private val dao: SessionDao) {
 
-    val recentSessions: Flow<List<StudySession>> = dao.observeRecent(RECENT_LIMIT)
+    /** Todas as sessões; a tela mostra as 5 primeiras e o resto em "Ver todas". */
+    val sessions: Flow<List<StudySession>> = dao.observeAll()
     val summary: Flow<HistorySummary> = dao.observeSummary()
+
+    fun minutesSince(since: Long): Flow<Int> = dao.observeMinutesSince(since)
 
     /** Recebe valores já validados (SPEC-004); objetivo vazio é gravado como null. */
     suspend fun save(subject: String, goal: String, minutes: Int) {
@@ -21,6 +24,13 @@ class SessionRepository(private val dao: SessionDao) {
                 createdAt = System.currentTimeMillis(),
             )
         )
+    }
+
+    suspend fun delete(session: StudySession) = dao.delete(session)
+
+    /** Desfazer a exclusão: grava de novo a mesma sessão, com o mesmo id e a mesma data. */
+    suspend fun restore(session: StudySession) {
+        dao.insert(session)
     }
 
     companion object {

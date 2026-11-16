@@ -17,8 +17,8 @@ class HistoryTest {
     // The database is cleared before the activity starts.
     @get:Rule val rules: RuleChain = RuleChain.outerRule(ClearDatabaseRule()).around(compose)
 
-    private fun waitForText(text: String) =
-        compose.waitUntil(5_000) { compose.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
+    private fun waitForText(text: String, substring: Boolean = false) =
+        compose.waitUntil(5_000) { compose.onAllNodesWithText(text, substring).fetchSemanticsNodes().isNotEmpty() }
 
     private fun planAndSave(minutes: Int, subject: String, goal: String = "") {
         compose.onNodeWithText("$minutes min").performScrollTo().performClick()
@@ -62,6 +62,32 @@ class HistoryTest {
         compose.onNodeWithText("1 sessão salva · 25 minutos no total").assertExists()
     }
 
+    @Test fun deleteRemovesTheSessionAndUndoBringsItBack() {
+        planAndSave(45, "Bioquímica")
+        waitForText("1 sessão salva · 45 minutos no total")
+        compose.onNodeWithContentDescription("Excluir Bioquímica").performScrollTo().performClick()
+        waitForText("Nenhuma sessão salva", substring = true)
+        compose.onNodeWithText("Bioquímica").assertDoesNotExist()
+        compose.onNodeWithText("Desfazer").performClick()
+        waitForText("1 sessão salva · 45 minutos no total")
+        compose.onNodeWithText("Bioquímica").performScrollTo().assertIsDisplayed()
+    }
+
+    @Test fun weeklyGoalCountsSavedMinutesAndCanBeChanged() {
+        compose.onNodeWithText("0 min de 5 h").performScrollTo().assertIsDisplayed()
+        planAndSave(45, "Bioquímica")
+        waitForText("45 min de 5 h")
+        compose.onNodeWithText("Faltam 4 h 15 min nesta semana.").assertExists()
+        compose.onNodeWithText("+ 30 min").performScrollTo().performClick()
+        compose.onNodeWithText("45 min de 5 h 30 min").assertExists()
+        compose.onNodeWithText("− 30 min").performClick()
+        compose.onNodeWithText("− 30 min").performClick()
+        compose.onNodeWithText("45 min de 4 h 30 min").assertExists()
+        // A meta fica guardada: continua depois de recriar a tela.
+        compose.activityRule.scenario.recreate()
+        waitForText("45 min de 4 h 30 min")
+    }
+
     @Test fun homeReadsDatabaseNewestFirstLimitedToFive() {
         val dao = RitmoDatabase.get(InstrumentationRegistry.getInstrumentation().targetContext).sessionDao()
         runBlocking {
@@ -72,6 +98,11 @@ class HistoryTest {
         waitForText("6 sessões salvas · 90 minutos no total")
         compose.onNodeWithText("Tema 6").assertExists()
         compose.onNodeWithText("Tema 2").assertExists()
+        compose.onNodeWithText("Tema 1").assertDoesNotExist()
+        // Ver todas mostra também as mais antigas; Mostrar menos volta às 5.
+        compose.onNodeWithText("Ver todas as 6 sessões").performScrollTo().performClick()
+        compose.onNodeWithText("Tema 1").performScrollTo().assertIsDisplayed()
+        compose.onNodeWithText("Mostrar menos").performScrollTo().performClick()
         compose.onNodeWithText("Tema 1").assertDoesNotExist()
     }
 }

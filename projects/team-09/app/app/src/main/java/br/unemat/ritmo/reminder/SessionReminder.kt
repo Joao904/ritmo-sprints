@@ -19,14 +19,23 @@ object SessionReminder {
     const val KEY_SUBJECT = "subject"
     const val KEY_MINUTES = "minutes"
 
-    /** Agenda o aviso e devolve o horário previsto (ms desde 1970). */
-    fun schedule(context: Context, subject: String, minutes: Int, now: Long = System.currentTimeMillis()): Long {
+    /**
+     * Agenda o aviso e devolve o horário previsto (ms desde 1970).
+     * [delayMs] é o tempo até o aviso: a sessão inteira ou, com o cronômetro rodando, o que falta.
+     */
+    fun schedule(
+        context: Context,
+        subject: String,
+        minutes: Int,
+        now: Long = System.currentTimeMillis(),
+        delayMs: Long = TimeUnit.MINUTES.toMillis(minutes.toLong()),
+    ): Long {
         val request = OneTimeWorkRequestBuilder<SessionEndWorker>()
-            .setInitialDelay(minutes.toLong(), TimeUnit.MINUTES)
+            .setInitialDelay(delayMs, TimeUnit.MILLISECONDS)
             .setInputData(workDataOf(KEY_SUBJECT to subject, KEY_MINUTES to minutes))
             .build()
         WorkManager.getInstance(context).enqueueUniqueWork(WORK_NAME, ExistingWorkPolicy.REPLACE, request)
-        return now + TimeUnit.MINUTES.toMillis(minutes.toLong())
+        return now + delayMs
     }
 
     fun cancel(context: Context) {

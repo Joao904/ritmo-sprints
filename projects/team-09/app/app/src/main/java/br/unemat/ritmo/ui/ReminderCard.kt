@@ -18,34 +18,41 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import br.unemat.ritmo.reminder.SessionNotifier
-import br.unemat.ritmo.reminder.SessionReminder
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 /**
- * Aviso de fim da sessão (Sprint 06). Estados: sem aviso, aviso marcado e sem permissão.
+ * Aviso de fim da sessão (Sprint 06). Estados: sem aviso, aviso marcado, aviso pausado
+ * (junto com o cronômetro) e sem permissão. O horário do aviso é controlado pela PlanScreen,
+ * que o mantém igual ao fim do cronômetro.
  * O pedido de permissão é assíncrono: o resultado chega no callback do launcher.
  */
 @Composable
-fun ReminderCard(subject: String, minutes: Int) {
+fun ReminderCard(
+    minutes: Int,
+    active: Boolean,
+    scheduledAt: Long?,
+    onEnable: () -> Unit,
+    onCancel: () -> Unit,
+    canTap: () -> Boolean = { true },
+) {
     val context = LocalContext.current
-    // Horário previsto do aviso; null = nenhum aviso marcado nesta tela.
-    var endAt by rememberSaveable { mutableStateOf<Long?>(null) }
     var denied by rememberSaveable { mutableStateOf(false) }
 
-    fun schedule() {
-        endAt = SessionReminder.schedule(context, subject, minutes)
+    fun enable() {
         denied = false
+        onEnable()
     }
 
     val permissionLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
-        if (granted && SessionNotifier.canNotify(context)) schedule() else denied = true
+        if (granted && SessionNotifier.canNotify(context)) enable() else denied = true
     }
 
     fun requestReminder() {
+        if (!canTap()) return
         when {
-            SessionNotifier.canNotify(context) -> schedule()
+            SessionNotifier.canNotify(context) -> enable()
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !SessionNotifier.hasPermission(context) ->
                 permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             else -> denied = true // notificações desligadas nas configurações do aparelho
@@ -55,22 +62,27 @@ fun ReminderCard(subject: String, minutes: Int) {
     Surface(color = Color(0xFFE8ECE2), shape = RoundedCornerShape(20.dp)) {
         Column(Modifier.fillMaxWidth().padding(20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Text("AVISO DE FIM DA SESSÃO", style = MaterialTheme.typography.labelMedium, color = Muted)
-            val scheduledAt = endAt
             when {
-                scheduledAt != null -> {
+                active && scheduledAt != null -> {
                     Text("Aviso marcado para ${formatTime(scheduledAt)}.", style = MaterialTheme.typography.titleMedium)
                     Text(
                         "Pode fechar o app: você recebe uma notificação quando os $minutes minutos acabarem.",
                         color = Muted, style = MaterialTheme.typography.bodyMedium
                     )
-                    TextButton(onClick = { SessionReminder.cancel(context); endAt = null }, contentPadding = PaddingValues(0.dp)) {
-                        Text("Cancelar aviso")
-                    }
+                    TextButton(onClick = onCancel, contentPadding = PaddingValues(0.dp)) { Text("Cancelar aviso") }
+                }
+                active -> {
+                    Text("Aviso pausado junto com o cronômetro.", style = MaterialTheme.typography.titleMedium)
+                    Text(
+                        "Quando você continuar, o aviso é marcado de novo para o fim do tempo que falta.",
+                        color = Muted, style = MaterialTheme.typography.bodyMedium
+                    )
+                    TextButton(onClick = onCancel, contentPadding = PaddingValues(0.dp)) { Text("Cancelar aviso") }
                 }
                 denied -> {
                     Text("Sem permissão de notificação.", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.error)
                     Text(
-                        "O Ritmo não consegue avisar quando o tempo acabar. O plano continua valendo: acompanhe pelo relógio ou ative as notificações nas configurações.",
+                        "O Ritmo não consegue avisar com o app fechado. O cronômetro na tela continua funcionando; para receber o aviso, ative as notificações nas configurações.",
                         color = Muted, style = MaterialTheme.typography.bodyMedium
                     )
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
