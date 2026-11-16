@@ -8,7 +8,7 @@
 | 03 | [Relatório](SPRINT-03.md) | `team-09/sprint-03` | [#22](https://github.com/brenofeliix/mobile-development-2026-2/pull/22) |
 | 04 | [Relatório](SPRINT-04.md) | `team-09/sprint-04` | [#41](https://github.com/brenofeliix/mobile-development-2026-2/pull/41) |
 | 05 | [Relatório](SPRINT-05.md) | `team-09/sprint-05` | [#42](https://github.com/brenofeliix/mobile-development-2026-2/pull/42) |
-| 06 | [Relatório](SPRINT-06.md) | `team-09/sprint-06` | PR_06 |
+| 06 | [Relatório](SPRINT-06.md) | `team-09/sprint-06` | [#45](https://github.com/brenofeliix/mobile-development-2026-2/pull/45) |
 
 As branches registram incrementos do mesmo aplicativo. Os PRs têm como destino a `main` do repositório da disciplina e podem ser revisados na ordem 00 → 01 → 02 → 03 → 04 → 05 → 06.
 

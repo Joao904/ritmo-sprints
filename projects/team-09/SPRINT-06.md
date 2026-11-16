@@ -86,7 +86,7 @@ Um ajuste veio da validação: o cartão do aviso ficava na mesma altura do bot�
 
 ## Entrega
 
-Branch: `team-09/sprint-06`. Pull Request com destino à `main` do repositório da disciplina.
+Branch: `team-09/sprint-06`. [Pull Request #45](https://github.com/brenofeliix/mobile-development-2026-2/pull/45), com destino à `main` do repositório da disciplina.
 
 ## Definition of Done
 

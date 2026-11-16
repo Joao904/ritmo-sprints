@@ -47,7 +47,7 @@ A partir de `app/`, no PowerShell:
 | 03 | [Relatório](SPRINT-03.md) | [PR #22](https://github.com/brenofeliix/mobile-development-2026-2/pull/22) |
 | 04 | [Relatório](SPRINT-04.md) | [PR #41](https://github.com/brenofeliix/mobile-development-2026-2/pull/41) |
 | 05 | [Relatório](SPRINT-05.md) | [PR #42](https://github.com/brenofeliix/mobile-development-2026-2/pull/42) |
-| 06 | [Relatório](SPRINT-06.md) | PR_06 |
+| 06 | [Relatório](SPRINT-06.md) | [PR #45](https://github.com/brenofeliix/mobile-development-2026-2/pull/45) |
 
 Cada relatório reúne a especificação, as decisões de implementação, os resultados de validação e as evidências do respectivo incremento.
 
