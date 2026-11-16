@@ -51,6 +51,8 @@ fun PlanScreen(
             PlanStep("01", "Prepare seu espaço", "Separe o material de $subject e deixe o resto de lado.")
             PlanStep("02", "Concentre-se", "Dedique os $selectedMinutes minutos escolhidos ao assunto, respeitando seu ritmo.")
             PlanStep("03", "Faça uma pausa", "Ao terminar, levante-se, respire e reconheça o que aprendeu.")
+            // Sprint 06: integração com as notificações do aparelho.
+            ReminderCard(subject = subject, minutes = selectedMinutes)
             Button(
                 onClick = { saved = true; onSave() },
                 enabled = !saved,
@@ -62,7 +64,7 @@ fun PlanScreen(
             OutlinedButton(onClick = onBack, modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp), shape = RoundedCornerShape(18.dp)) {
                 Text("Ajustar duração", style = MaterialTheme.typography.titleMedium)
             }
-            Text("Este é seu plano de estudo, sem contagem de tempo.", color = Muted, style = MaterialTheme.typography.bodySmall)
+            Text("Sem cronômetro na tela: o fim da sessão chega por notificação.", color = Muted, style = MaterialTheme.typography.bodySmall)
         }
     }
 }
