@@ -48,6 +48,10 @@ class NavigationTest {
     @Test fun rapidForwardTapsDoNotDuplicateTheDestination() {
         fillSubject()
         compose.onNodeWithText("Planejar meu estudo").performScrollTo().performTouchInput { doubleClick() }
+        // Wait for the transition: right after the double tap the window may still be changing.
+        compose.waitUntil(5_000) {
+            runCatching { compose.onAllNodesWithText("Seu plano").fetchSemanticsNodes().isNotEmpty() }.getOrDefault(false)
+        }
         compose.onNodeWithText("Seu plano").assertIsDisplayed()
         pressBack()
         compose.onNodeWithText("25 min").assertIsSelected()
