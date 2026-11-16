@@ -1,48 +1,64 @@
-== Sprint04Evidence#invalidInput  (16:59:07 UTC)
+== Sprint04Evidence#invalidInput  (20:22:22 UTC)
 processo do app antes do passo: nenhum (app fechado)
 
 br.unemat.ritmo.Sprint04Evidence:.
 
-Time: 3.569
+Time: 4.101
 
 OK (1 test)
-== Sprint04Evidence#validInput  (16:59:13 UTC)
+== Sprint04Evidence#validInput  (20:22:29 UTC)
 processo do app antes do passo: nenhum (app fechado)
 
 br.unemat.ritmo.Sprint04Evidence:.
 
-Time: 6.224
+Time: 7.503
 
 OK (1 test)
-== Sprint05Evidence#createData  (16:59:22 UTC)
+== Sprint05Evidence#createData  (20:22:39 UTC)
 processo do app antes do passo: nenhum (app fechado)
 
 br.unemat.ritmo.Sprint05Evidence:.
 
-Time: 14.865
+Time: 15.111
 
 OK (1 test)
-== Sprint05Evidence#restoreData  (16:59:39 UTC)
+== Sprint05Evidence#restoreData  (20:22:57 UTC)
 processo do app antes do passo: nenhum (app fechado)
 
 br.unemat.ritmo.Sprint05Evidence:.
 
-Time: 3.299
+Time: 4.162
 
 OK (1 test)
-== Sprint06Evidence#notificationDenied  (16:59:45 UTC)
+== Sprint06Evidence#notificationDenied  (20:23:04 UTC)
 processo do app antes do passo: nenhum (app fechado)
 
 br.unemat.ritmo.Sprint06Evidence:.
 
-Time: 7.546
+Time: 8.986
 
 OK (1 test)
-== Sprint06Evidence#notificationAllowed  (16:59:54 UTC)
+== Sprint06Evidence#notificationAllowed  (20:23:15 UTC)
 processo do app antes do passo: nenhum (app fechado)
 
 br.unemat.ritmo.Sprint06Evidence:.
 
-Time: 9.918
+Time: 13.077
+
+OK (1 test)
+== ImprovementsEvidence#timer  (20:23:30 UTC)
+processo do app antes do passo: nenhum (app fechado)
+
+br.unemat.ritmo.ImprovementsEvidence:.
+
+Time: 9.347
+
+OK (1 test)
+== ImprovementsEvidence#history  (20:23:42 UTC)
+processo do app antes do passo: nenhum (app fechado)
+
+br.unemat.ritmo.ImprovementsEvidence:.
+
+Time: 5.575
 
 OK (1 test)

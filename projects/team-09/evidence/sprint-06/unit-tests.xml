@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="br.unemat.ritmo.model.SessionRulesTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-16T16:54:46" hostname="ip-10-0-143-81" time="0.031">
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuites>
+<testsuite name="br.unemat.ritmo.model.SessionRulesTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-16T20:16:12" hostname="runnervmccnms" time="0.047">
   <properties/>
-  <testcase name="formIsValidOnlyWhenBothFieldsAre" classname="br.unemat.ritmo.model.SessionRulesTest" time="0.019"/>
-  <testcase name="minutesAreRequired" classname="br.unemat.ritmo.model.SessionRulesTest" time="0.0"/>
+  <testcase name="formIsValidOnlyWhenBothFieldsAre" classname="br.unemat.ritmo.model.SessionRulesTest" time="0.034"/>
+  <testcase name="minutesAreRequired" classname="br.unemat.ritmo.model.SessionRulesTest" time="0.001"/>
   <testcase name="goalIsOptionalWithMaximum" classname="br.unemat.ritmo.model.SessionRulesTest" time="0.0"/>
   <testcase name="subjectLimitsAreInclusive" classname="br.unemat.ritmo.model.SessionRulesTest" time="0.0"/>
   <testcase name="minutesLimitsAreInclusive" classname="br.unemat.ritmo.model.SessionRulesTest" time="0.001"/>
@@ -13,3 +14,24 @@
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
+
+<testsuite name="br.unemat.ritmo.model.StudyTimerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-16T20:16:12" hostname="runnervmccnms" time="0.021">
+  <properties/>
+  <testcase name="finishesAtZeroAndResetGoesBackToTheFullTime" classname="br.unemat.ritmo.model.StudyTimerTest" time="0.002"/>
+  <testcase name="pauseKeepsWhatWasLeftAndResumeContinuesFromThere" classname="br.unemat.ritmo.model.StudyTimerTest" time="0.0"/>
+  <testcase name="formatsMinutesAndHours" classname="br.unemat.ritmo.model.StudyTimerTest" time="0.001"/>
+  <testcase name="survivesSaveAndRestore" classname="br.unemat.ritmo.model.StudyTimerTest" time="0.017"/>
+  <testcase name="startCountsDownFromTheEndTime" classname="br.unemat.ritmo.model.StudyTimerTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
+
+<testsuite name="br.unemat.ritmo.model.WeeklyGoalTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-16T20:16:13" hostname="runnervmccnms" time="0.042">
+  <properties/>
+  <testcase name="formatsAndProgress" classname="br.unemat.ritmo.model.WeeklyGoalTest" time="0.041"/>
+  <testcase name="goalChangesBy30MinutesWithinLimits" classname="br.unemat.ritmo.model.WeeklyGoalTest" time="0.0"/>
+  <testcase name="weekStartsOnMondayAtMidnight" classname="br.unemat.ritmo.model.WeeklyGoalTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
+</testsuites>

@@ -17,7 +17,9 @@ Estudantes com pouco tempo disponível podem adiar o estudo por não saberem com
 
 Sprint 06: o estudante digita quantos minutos vai estudar (de 5 a 180, com atalhos de 15, 25, 45 e 60). No plano, o botão Avisar quando acabar pede a permissão de notificação e agenda, com o WorkManager, um aviso para o fim da sessão, que chega mesmo com o app fechado. Se a permissão for negada, o app explica e oferece abrir as configurações.
 
-O escopo até a sprint 6 é apresentar o aplicativo, informar duração, assunto e objetivo, consultar o plano, salvar as sessões no histórico e receber o aviso de fim da sessão. Cronômetro na tela, edição e exclusão de sessões e login ficam fora desta entrega.
+Também na Sprint 06: cronômetro em regressiva no plano (Começar, Pausar, Continuar e Recomeçar), com o aviso de fim acompanhando o cronômetro; meta da semana na tela inicial; exclusão de sessões do histórico, com Desfazer; e Ver todas, para listar mais que as 5 sessões recentes.
+
+O escopo até a sprint 6 é apresentar o aplicativo, informar duração, assunto e objetivo, consultar o plano com cronômetro, salvar e excluir sessões do histórico, acompanhar a meta da semana e receber o aviso de fim da sessão. Edição de sessões, sincronização e login ficam fora desta entrega.
 
 ## Executar
 

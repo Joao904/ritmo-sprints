@@ -9,11 +9,11 @@ Comandos, a partir de `app/`:
 
 | Conjunto | Resultado |
 | --- | --- |
-| Testes locais (`SessionRulesTest`) | 9 aprovados, 0 falhas; 3 novos para a regra VR-05 ([unit-tests.xml](unit-tests.xml)) |
-| Testes instrumentados | 25 aprovados, 0 falhas; 6 testes de evidência ignorados nessa execução, conforme previsto ([instrumented-tests.xml](instrumented-tests.xml)) |
-| Lint | 0 erros e 19 avisos ([lint.txt](lint.txt)) |
+| Testes locais | 17 aprovados, 0 falhas: `SessionRulesTest` 9 (3 novos para a regra VR-05), `StudyTimerTest` 5 e `WeeklyGoalTest` 3 ([unit-tests.xml](unit-tests.xml)) |
+| Testes instrumentados | 31 aprovados, 0 falhas; 8 testes de evidência ignorados nessa execução, conforme previsto ([instrumented-tests.xml](instrumented-tests.xml)) |
+| Lint | 0 erros e 21 avisos ([lint.txt](lint.txt)) |
 
-Testes instrumentados por classe: `FormTest` 7, `DurationTest` 5 (reescrito para a duração digitada), `HistoryTest` 5, `NavigationTest` 4, `ReminderTest` 3 (novo) e `WelcomeTest` 1.
+Testes instrumentados por classe: `FormTest` 7, `HistoryTest` 7, `DurationTest` 5 (reescrito para a duração digitada), `NavigationTest` 4, `ReminderTest` 4, `TimerTest` 3 e `WelcomeTest` 1.
 
 ## Cenários da integração
 
@@ -22,8 +22,18 @@ Antes de cada passo de evidência, o script retira a permissão de notificação
 | Cenário | Passo | Resultado |
 | --- | --- | --- |
 | Alternativo: permissão negada | `Sprint06Evidence#notificationDenied` toca em **Não permitir** | O cartão mostra “Sem permissão de notificação.”, com a explicação, Abrir configurações e Tentar de novo ([integration-alternative-state.png](integration-alternative-state.png)) |
-| Sucesso: permissão concedida | `Sprint06Evidence#notificationAllowed` toca em **Permitir** | “Aviso marcado para 13:30.” (30 min depois das 13:00 do emulador) e Cancelar aviso ([integration-success.png](integration-success.png)) |
+| Sucesso: permissão concedida | `Sprint06Evidence#notificationAllowed` toca em **Permitir** | “Aviso marcado para 16:53.” (30 min depois do horário do emulador) e Cancelar aviso ([integration-success.png](integration-success.png)) |
 | Sucesso: notificação | No mesmo passo, o `SessionEndWorker` é executado sem esperar os 30 minutos | A gaveta mostra “Sessão concluída: Cálculo I — limites” / “Seus 30 minutos acabaram. Hora de fazer uma pausa.” ([integration-notification.png](integration-notification.png)) |
+
+## Melhorias de uso
+
+| Cenário | Verificação | Resultado |
+| --- | --- | --- |
+| Cronômetro | `TimerTest`: começa no tempo digitado; Começar, Pausar (o tempo para), Continuar e Recomeçar; continua rodando após recriar a tela. `ImprovementsEvidence#timer` | PASS ([timer-running.png](timer-running.png)) |
+| Aviso acompanha o cronômetro | `ReminderTest.reminderFollowsTheTimer`: pausar deixa o trabalho `CANCELLED` e mostra “Aviso pausado junto com o cronômetro.”; continuar volta a `ENQUEUED` | PASS |
+| Meta da semana | `HistoryTest.weeklyGoalCountsSavedMinutesAndCanBeChanged`: soma a sessão salva, +30/−30 min, meta mantida após recriar a tela. `ImprovementsEvidence#history` | PASS ([weekly-goal.png](weekly-goal.png)) |
+| Excluir com Desfazer | `HistoryTest.deleteRemovesTheSessionAndUndoBringsItBack` | PASS ([history-deleted.png](history-deleted.png)) |
+| Ver todas | `HistoryTest.homeReadsDatabaseNewestFirstLimitedToFive`: 5 visíveis, Ver todas mostra a 6ª, Mostrar menos volta às 5 | PASS ([history-all.png](history-all.png)) |
 
 O atraso de N minutos é de responsabilidade do WorkManager. O teste `ReminderTest.reminderIsScheduledAndCanBeCancelled` confere que o trabalho fica `ENQUEUED` depois do toque e `CANCELLED` depois de Cancelar aviso.
 
@@ -44,6 +54,8 @@ O atraso de N minutos é de responsabilidade do WorkManager. O teste `ReminderTe
 
 - Na primeira versão, o cartão do aviso ficava abaixo do roteiro, na mesma altura do botão Planejar meu estudo da tela anterior. O teste de toque duplo (`NavigationTest.rapidForwardTapsDoNotDuplicateTheDestination`) mostrou que o segundo toque caía em Avisar quando acabar e abria a janela de permissão sem querer. O cartão foi movido para logo abaixo do tempo da sessão.
 - Em uma das execuções, uma janela de erro do sistema do emulador tirou o foco do app e derrubou vários testes. O script passou a esconder essas janelas (`hide_error_dialogs`) antes dos testes.
+- Nas melhorias, dois testes novos falharam na primeira execução porque a mensagem “Sessão salva no histórico.” cobria o botão tocado no fim da tela. Os testes passaram a esperar a mensagem sumir antes de tocar.
+- A tela do plano agora ignora toques durante a animação de entrada, o que elimina a causa do toque duplo descrito acima.
 - Lint: os avisos são, em sua maioria, versões mais novas de bibliotecas (mantidas por compatibilidade com o Kotlin 2.1.20). O aviso `ObsoleteSdkInt` em `ReminderCard.kt` é um falso positivo: a verificação de versão é necessária, porque o `minSdk` é 24.
 
 ## Capturas
@@ -52,3 +64,7 @@ O atraso de N minutos é de responsabilidade do WorkManager. O teste `ReminderTe
 ![integration-alternative-state.png](integration-alternative-state.png)
 ![integration-notification.png](integration-notification.png)
 ![duration-field.png](duration-field.png)
+![timer-running.png](timer-running.png)
+![weekly-goal.png](weekly-goal.png)
+![history-all.png](history-all.png)
+![history-deleted.png](history-deleted.png)

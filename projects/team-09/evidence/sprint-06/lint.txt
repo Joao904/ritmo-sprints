@@ -94,7 +94,7 @@
    https://developer.android.com/about/versions/12/backup-restore#xml-changes
    https://goo.gle/DataExtractionRules
 
-/home/runner/work/ritmo-sprints/ritmo-sprints/projects/team-09/app/app/src/main/java/br/unemat/ritmo/ui/ReminderCard.kt:49: Warning: Unnecessary; Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU is never true here [ObsoleteSdkInt]
+/home/runner/work/ritmo-sprints/ritmo-sprints/projects/team-09/app/app/src/main/java/br/unemat/ritmo/ui/ReminderCard.kt:56: Warning: Unnecessary; Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU is never true here [ObsoleteSdkInt]
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !SessionNotifier.hasPermission(context) ->
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -107,7 +107,13 @@
    where the version qualifier is less than or equal to the minSdkVersion,
    where the contents should be merged into the best folder.
 
-/home/runner/work/ritmo-sprints/ritmo-sprints/projects/team-09/app/app/src/main/java/br/unemat/ritmo/ui/ReminderCard.kt:105: Warning: Use the KTX extension function String.toUri instead? [UseKtx]
+/home/runner/work/ritmo-sprints/ritmo-sprints/projects/team-09/app/app/src/main/java/br/unemat/ritmo/data/GoalStore.kt:12: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+    fun set(minutes: Int) = prefs.edit().putInt(KEY, minutes).apply()
+                            ~~~~~~~~~~~~
+/home/runner/work/ritmo-sprints/ritmo-sprints/projects/team-09/app/app/src/main/java/br/unemat/ritmo/data/GoalStore.kt:14: Warning: Use the KTX extension function SharedPreferences.edit instead? [UseKtx]
+    fun clear() = prefs.edit().remove(KEY).apply()
+                  ~~~~~~~~~~~~
+/home/runner/work/ritmo-sprints/ritmo-sprints/projects/team-09/app/app/src/main/java/br/unemat/ritmo/ui/ReminderCard.kt:117: Warning: Use the KTX extension function String.toUri instead? [UseKtx]
         Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:${context.packageName}"))
                                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -164,4 +170,4 @@
    </lint>
    ```
 
-0 errors, 19 warnings
+0 errors, 21 warnings

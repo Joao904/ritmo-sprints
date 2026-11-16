@@ -79,7 +79,7 @@ Kotlin, Jetpack Compose, Material 3, SDK mínimo 24 e compilação com SDK 35. W
 
 ## 7. Out of Scope
 
-Cronômetro na tela, pausar ou retomar a sessão, alarme sonoro exato (`SCHEDULE_EXACT_ALARM`), lembretes recorrentes e sincronização.
+Alarme sonoro exato (`SCHEDULE_EXACT_ALARM`), lembretes recorrentes e sincronização.
 
 ## 8. Acceptance Criteria
 

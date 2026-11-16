@@ -58,9 +58,30 @@ Nenhum dado sai do aparelho. A notificação mostra apenas o assunto e a duraç�
 
 O campo só aceita dígitos (até 3). A coluna `minutes` do histórico já era um inteiro, então o banco não mudou.
 
+## Melhorias de uso
+
+Depois da integração, quatro pontos que faltavam no uso diário entraram na mesma sprint:
+
+| Melhoria | O que faz | Implementação |
+| --- | --- | --- |
+| Cronômetro na tela | Contagem regressiva no cartão do plano, com Começar, Pausar, Continuar e Recomeçar. Guarda o horário de término, então continua certo com o app em segundo plano e após girar a tela. | `model/StudyTimer.kt`, `ui/PlanScreen.kt` |
+| Aviso junto com o cronômetro | Com o aviso ligado, pausar o cronômetro pausa o aviso (“Aviso pausado junto com o cronômetro.”); continuar marca de novo para o fim do tempo que falta. | `PlanScreen.syncReminder`, `SessionReminder.schedule(delayMs)` |
+| Meta da semana | Soma os minutos salvos desde segunda-feira e mostra o progresso até a meta (padrão 5 h, ajustável de 30 em 30 min, guardada nas preferências do app). | `model/WeeklyGoal.kt`, `data/GoalStore.kt`, `SessionDao.observeMinutesSince` |
+| Excluir e ver todas | Cada sessão tem Excluir; a mensagem “Sessão excluída.” oferece Desfazer. O histórico mostra as 5 mais recentes e Ver todas as N sessões lista o resto. | `SessionDao.delete`, `SessionRepository.restore`, `ui/HistorySection.kt` |
+
+Também foi corrigida a causa do toque duplo: a tela do plano ignora toques enquanto a animação de entrada não termina (`Lifecycle.State.RESUMED`), então o segundo toque em Planejar meu estudo não aciona nada no plano, qualquer que seja o botão naquela posição.
+
+![Cronômetro rodando](evidence/sprint-06/timer-running.png)
+
+![Meta da semana](evidence/sprint-06/weekly-goal.png)
+
+![Ver todas as sessões](evidence/sprint-06/history-all.png)
+
+![Sessão excluída, com Desfazer](evidence/sprint-06/history-deleted.png)
+
 ## Validação
 
-Compilação aprovada. **25 testes instrumentados** aprovados no emulador, sem falhas: 3 novos em `ReminderTest`, 5 em `DurationTest` (reescrito para a duração digitada) e os das sprints anteriores. Também passaram os 9 testes locais das regras (3 novos para a duração). [Resultados por critério](evidence/sprint-06/validation.md) e logs em `evidence/sprint-06/`.
+Compilação aprovada. **31 testes instrumentados** aprovados no emulador, sem falhas: `ReminderTest` 4 (um deles confere que o aviso pausa e volta com o cronômetro), `TimerTest` 3 (novo), `HistoryTest` 7 (exclusão com Desfazer, meta da semana e Ver todas), `DurationTest` 5 (reescrito para a duração digitada) e os das sprints anteriores. Também passaram **17 testes locais**: 9 das regras do formulário, 5 do cronômetro (`StudyTimerTest`) e 3 da meta da semana (`WeeklyGoalTest`). [Resultados por critério](evidence/sprint-06/validation.md) e logs em `evidence/sprint-06/`.
 
 **Dois cenários com a janela real do sistema:** antes de cada passo, o script retira a permissão do app. No passo `notificationDenied`, o teste toca em **Não permitir**, e o cartão mostra o estado alternativo. No passo `notificationAllowed`, o teste toca em **Permitir**, e o aviso é marcado para 30 minutos depois. Em seguida, o `SessionEndWorker` é executado sem esperar os 30 minutos, e a notificação aparece na gaveta.
 
@@ -79,9 +100,9 @@ Um ajuste veio da validação: o cartão do aviso ficava na mesma altura do bot�
 | Item | Resposta |
 | --- | --- |
 | LLM/tool used | Claude (Claude Code) |
-| Task supported by the LLM | Escolha da integração, fluxo de permissão, agendamento com WorkManager, campo de duração, testes, automação das evidências e documentação |
+| Task supported by the LLM | Escolha da integração, fluxo de permissão, agendamento com WorkManager, campo de duração, cronômetro, meta da semana, exclusão de sessões, testes, automação das evidências e documentação |
 | Main suggestion received | Usar notificação agendada pelo WorkManager em vez de cronômetro na tela; conferir a permissão também na hora do aviso; nome único com `REPLACE` para manter um aviso por vez |
-| What the team changed manually | A duração deixou de ser fixa (15, 25 ou 45) e passou a ser digitada, com os valores fixos como atalhos |
+| What the team changed manually | A duração deixou de ser fixa (15, 25 ou 45) e passou a ser digitada, com os valores fixos como atalhos; a equipe pediu o cronômetro na tela, a meta da semana, a exclusão de sessões e o Ver todas |
 | How the result was validated | Testes locais e instrumentados no emulador e capturas com a janela real de permissão do sistema (negar e permitir) |
 
 ## Entrega
