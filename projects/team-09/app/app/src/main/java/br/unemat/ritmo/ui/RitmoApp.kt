@@ -65,7 +65,7 @@ fun RitmoApp(repository: SessionRepository) {
                 sessions = sessions,
                 weekMinutes = weekMinutes,
                 weeklyGoal = weeklyGoal,
-                onGoalChange = { weeklyGoal = it; goalStore.set(it) },
+                onWeeklyGoalChange = { weeklyGoal = it; goalStore.set(it) },
                 onDelete = { session ->
                     scope.launch {
                         repository.delete(session)

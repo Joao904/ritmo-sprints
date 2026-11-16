@@ -31,7 +31,7 @@ fun WelcomeScreen(
     sessions: List<StudySession>,
     weekMinutes: Int,
     weeklyGoal: Int,
-    onGoalChange: (Int) -> Unit,
+    onWeeklyGoalChange: (Int) -> Unit,
     onDelete: (StudySession) -> Unit,
     snackbarHostState: SnackbarHostState,
     modifier: Modifier = Modifier
@@ -68,7 +68,7 @@ fun WelcomeScreen(
                 sessions = sessions,
                 weekMinutes = weekMinutes,
                 weeklyGoal = weeklyGoal,
-                onGoalChange = onGoalChange,
+                onGoalChange = onWeeklyGoalChange,
                 onDelete = onDelete
             )
         }
@@ -113,7 +113,7 @@ private fun WelcomePreview() {
             "25", {}, "Cálculo I", "", false, {}, {}, {},
             summary = HistorySummary(1, 25),
             sessions = listOf(StudySession(1, "Cálculo I", "resolver 5 exercícios", 25, 0L)),
-            weekMinutes = 25, weeklyGoal = 300, onGoalChange = {}, onDelete = {},
+            weekMinutes = 25, weeklyGoal = 300, onWeeklyGoalChange = {}, onDelete = {},
             snackbarHostState = remember { SnackbarHostState() }
         )
     }
