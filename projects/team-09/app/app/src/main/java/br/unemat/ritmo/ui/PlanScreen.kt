@@ -47,12 +47,12 @@ fun PlanScreen(
                     }
                 }
             }
+            // Sprint 06: integração com as notificações do aparelho, logo abaixo do tempo da sessão.
+            ReminderCard(subject = subject, minutes = selectedMinutes)
             Text("Um roteiro simples", style = MaterialTheme.typography.titleLarge)
             PlanStep("01", "Prepare seu espaço", "Separe o material de $subject e deixe o resto de lado.")
             PlanStep("02", "Concentre-se", "Dedique os $selectedMinutes minutos escolhidos ao assunto, respeitando seu ritmo.")
             PlanStep("03", "Faça uma pausa", "Ao terminar, levante-se, respire e reconheça o que aprendeu.")
-            // Sprint 06: integração com as notificações do aparelho.
-            ReminderCard(subject = subject, minutes = selectedMinutes)
             Button(
                 onClick = { saved = true; onSave() },
                 enabled = !saved,

@@ -78,9 +78,16 @@ class ReminderTest {
             .build()
         val result = runBlocking { worker.doWork() }
         assertEquals(ListenableWorker.Result.success(), result)
+        assertTrue("sem permissão de notificação no teste", SessionNotifier.canNotify(context))
 
-        val posted = context.getSystemService(NotificationManager::class.java).activeNotifications
-            .firstOrNull { it.id == SessionNotifier.NOTIFICATION_ID }
+        // O sistema publica a notificação de forma assíncrona: espera até 5 s.
+        val manager = context.getSystemService(NotificationManager::class.java)
+        var posted = manager.activeNotifications.firstOrNull { it.id == SessionNotifier.NOTIFICATION_ID }
+        val deadline = System.currentTimeMillis() + 5_000
+        while (posted == null && System.currentTimeMillis() < deadline) {
+            Thread.sleep(200)
+            posted = manager.activeNotifications.firstOrNull { it.id == SessionNotifier.NOTIFICATION_ID }
+        }
         assertTrue("notificação não encontrada", posted != null)
         val extras = posted!!.notification.extras
         assertEquals("Sessão concluída: Cálculo I", extras.getCharSequence("android.title").toString())
