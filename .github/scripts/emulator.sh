@@ -27,6 +27,9 @@ LOG="$OUT/evidence-run.txt"
 : > "$LOG"
 for step in $EVIDENCE_STEPS; do
   adb shell am force-stop "$APP"
+  # Sprint 06: cada passo começa sem a permissão de notificação, para a janela do sistema aparecer.
+  adb shell pm revoke "$APP" android.permission.POST_NOTIFICATIONS 2>/dev/null || true
+  adb shell pm clear-permission-flags "$APP" android.permission.POST_NOTIFICATIONS user-set user-fixed 2>/dev/null || true
   echo "== $step  ($(date -u +%H:%M:%S) UTC)" | tee -a "$LOG"
   echo "processo do app antes do passo: $(adb shell pidof $APP || echo 'nenhum (app fechado)')" | tee -a "$LOG"
   result=$(adb shell am instrument -w -e evidence true -e class "$APP.$step" "$RUNNER")
