@@ -15,9 +15,9 @@ Estudantes com pouco tempo disponível podem adiar o estudo por não saberem com
 
 ## Versão desta branch
 
-Sprint 05: no plano, o botão Salvar no histórico grava a sessão em um banco local (Room). A tela inicial mostra Seu histórico, com as sessões mais recentes e os totais, que continuam disponíveis depois de fechar e abrir o app.
+Sprint 06: o estudante digita quantos minutos vai estudar (de 5 a 180, com atalhos de 15, 25, 45 e 60). No plano, o botão Avisar quando acabar pede a permissão de notificação e agenda, com o WorkManager, um aviso para o fim da sessão, que chega mesmo com o app fechado. Se a permissão for negada, o app explica e oferece abrir as configurações.
 
-O escopo até a sprint 5 é apresentar o aplicativo, selecionar a duração, informar assunto e objetivo, consultar o plano e salvar as sessões no histórico. Cronômetro, edição e exclusão de sessões, login e integrações externas ficam fora desta entrega.
+O escopo até a sprint 6 é apresentar o aplicativo, informar duração, assunto e objetivo, consultar o plano, salvar as sessões no histórico e receber o aviso de fim da sessão. Cronômetro na tela, edição e exclusão de sessões e login ficam fora desta entrega.
 
 ## Executar
 
@@ -47,12 +47,13 @@ A partir de `app/`, no PowerShell:
 | 03 | [Relatório](SPRINT-03.md) | [PR #22](https://github.com/brenofeliix/mobile-development-2026-2/pull/22) |
 | 04 | [Relatório](SPRINT-04.md) | [PR #41](https://github.com/brenofeliix/mobile-development-2026-2/pull/41) |
 | 05 | [Relatório](SPRINT-05.md) | [PR #42](https://github.com/brenofeliix/mobile-development-2026-2/pull/42) |
+| 06 | [Relatório](SPRINT-06.md) | PR_06 |
 
 Cada relatório reúne a especificação, as decisões de implementação, os resultados de validação e as evidências do respectivo incremento.
 
 ## Uso de IA
 
-Sprints 00 a 03: utilizamos o Codex na especificação, geração de código, configuração, depuração, testes e documentação. Sprints 04 e 05: utilizamos o Claude (Claude Code) para as mesmas tarefas. A validação incluiu compilação, execução no emulador, testes instrumentados e capturas de tela.
+Sprints 00 a 03: utilizamos o Codex na especificação, geração de código, configuração, depuração, testes e documentação. Sprints 04 a 06: utilizamos o Claude (Claude Code) para as mesmas tarefas. A validação incluiu compilação, execução no emulador, testes instrumentados e capturas de tela.
 
 ## Referências
 
