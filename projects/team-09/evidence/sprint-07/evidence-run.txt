@@ -1,40 +1,48 @@
-== Sprint07Evidence#finalHome  (20:50:43 UTC)
+== Sprint07Evidence#finalHome  (22:01:34 UTC)
 processo do app antes do passo: nenhum (app fechado)
 
 br.unemat.ritmo.Sprint07Evidence:.
 
-Time: 4.141
+Time: 3.215
 
 OK (1 test)
-== Sprint07Evidence#timerStart  (20:50:49 UTC)
+== Sprint07Evidence#timerStart  (22:01:40 UTC)
 processo do app antes do passo: nenhum (app fechado)
 
 br.unemat.ritmo.Sprint07Evidence:.
 
-Time: 19.469
+Time: 17.634
 
 OK (1 test)
-== Sprint07Evidence#timerAfterRestart  (20:51:10 UTC)
+== Sprint07Evidence#timerAfterRestart  (22:01:59 UTC)
 processo do app antes do passo: nenhum (app fechado)
 
 br.unemat.ritmo.Sprint07Evidence:.
 
-Time: 4.147
+Time: 3.616
 
 OK (1 test)
-== Sprint07Evidence#finalAlarm  (20:51:16 UTC)
+== Sprint07Evidence#finalAlarm  (22:02:05 UTC)
 processo do app antes do passo: nenhum (app fechado)
 
 br.unemat.ritmo.Sprint07Evidence:.
 
-Time: 10.319
+Time: 10.117
 
 OK (1 test)
-== Sprint07Evidence#finalHistory  (20:51:28 UTC)
+== Sprint07Evidence#finalHistory  (22:02:17 UTC)
 processo do app antes do passo: nenhum (app fechado)
 
 br.unemat.ritmo.Sprint07Evidence:.
 
-Time: 11.638
+Time: 11.136
+
+OK (1 test)
+== Sprint07Evidence#finalNotes  (22:02:30 UTC)
+processo do app antes do passo: nenhum (app fechado)
+
+br.unemat.ritmo.Sprint07Evidence:.
+
+Time: 7.783
 
 OK (1 test)

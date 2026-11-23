@@ -24,6 +24,7 @@
 > Task :app:checkDebugAndroidTestAarMetadata
 > Task :app:mapDebugAndroidTestSourceSetPaths
 > Task :app:generateDebugAndroidTestResources
+> Task :app:mergeDebugAndroidTestResources
 > Task :app:processDebugAndroidTestManifest
 > Task :app:javaPreCompileDebugAndroidTest
 > Task :app:mergeDebugShaders UP-TO-DATE
@@ -37,7 +38,6 @@
 > Task :app:processDebugJavaRes UP-TO-DATE
 > Task :app:mergeDebugJavaResource UP-TO-DATE
 > Task :app:checkDebugDuplicateClasses UP-TO-DATE
-> Task :app:mergeDebugAndroidTestResources
 > Task :app:mergeExtDexDebug UP-TO-DATE
 > Task :app:mergeLibDexDebug UP-TO-DATE
 > Task :app:mergeProjectDexDebug UP-TO-DATE
@@ -58,8 +58,8 @@
 > Task :app:processDebugAndroidTestResources
 > Task :app:checkDebugAndroidTestDuplicateClasses
 > Task :app:kspDebugAndroidTestKotlin
-> Task :app:mergeDebugAndroidTestJniLibFolders
 > Task :app:mergeLibDexDebugAndroidTest
+> Task :app:mergeDebugAndroidTestJniLibFolders
 > Task :app:mergeDebugAndroidTestNativeLibs NO-SOURCE
 > Task :app:stripDebugAndroidTestDebugSymbols NO-SOURCE
 > Task :app:validateSigningDebugAndroidTest
@@ -77,46 +77,47 @@
 [EmulatorConsole]: Failed to start Emulator console for 5554
 
 > Task :app:connectedDebugAndroidTest
-Starting 42 tests on emulator-5554 - 15
+Starting 46 tests on emulator-5554 - 15
 
-emulator-5554 - 15 Tests 0/42 completed. (0 skipped) (0 failed)
-emulator-5554 - 15 Tests 1/42 completed. (0 skipped) (0 failed)
-emulator-5554 - 15 Tests 3/42 completed. (0 skipped) (0 failed)
-emulator-5554 - 15 Tests 5/42 completed. (0 skipped) (0 failed)
-emulator-5554 - 15 Tests 7/42 completed. (0 skipped) (0 failed)
-emulator-5554 - 15 Tests 9/42 completed. (0 skipped) (0 failed)
-emulator-5554 - 15 Tests 10/42 completed. (0 skipped) (0 failed)
-emulator-5554 - 15 Tests 12/42 completed. (0 skipped) (0 failed)
-emulator-5554 - 15 Tests 15/42 completed. (0 skipped) (0 failed)
-emulator-5554 - 15 Tests 18/42 completed. (0 skipped) (0 failed)
-emulator-5554 - 15 Tests 19/42 completed. (0 skipped) (0 failed)
-emulator-5554 - 15 Tests 22/42 completed. (0 skipped) (0 failed)
-emulator-5554 - 15 Tests 24/42 completed. (0 skipped) (0 failed)
-emulator-5554 - 15 Tests 27/42 completed. (0 skipped) (0 failed)
-emulator-5554 - 15 Tests 29/42 completed. (0 skipped) (0 failed)
-emulator-5554 - 15 Tests 30/42 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 0/46 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 2/46 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 4/46 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 7/46 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 9/46 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 10/46 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 13/46 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 16/46 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 19/46 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 21/46 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 23/46 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 26/46 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 29/46 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 31/46 completed. (0 skipped) (0 failed)
+emulator-5554 - 15 Tests 32/46 completed. (0 skipped) (0 failed)
 
 > Task :app:connectedDebugAndroidTest
 
 br.unemat.ritmo.Sprint07Evidence > finalAlarm[emulator-5554 - 15] [33mSKIPPED [0m
 
+br.unemat.ritmo.Sprint07Evidence > finalNotes[emulator-5554 - 15] [33mSKIPPED [0m
+
 br.unemat.ritmo.Sprint07Evidence > finalHistory[emulator-5554 - 15] [33mSKIPPED [0m
 
-br.unemat.ritmo.Sprint07Evidence > timerAfterRestart[emulator-5554 - 15] [33mSKIPPED [0m
-
-emulator-5554 - 15 Tests 37/42 completed. (3 skipped) (0 failed)
+emulator-5554 - 15 Tests 40/46 completed. (3 skipped) (0 failed)
 
 > Task :app:connectedDebugAndroidTest
+
+br.unemat.ritmo.Sprint07Evidence > timerAfterRestart[emulator-5554 - 15] [33mSKIPPED [0m
 
 br.unemat.ritmo.Sprint07Evidence > finalHome[emulator-5554 - 15] [33mSKIPPED [0m
 
 br.unemat.ritmo.Sprint07Evidence > timerStart[emulator-5554 - 15] [33mSKIPPED [0m
 
-emulator-5554 - 15 Tests 42/42 completed. (5 skipped) (0 failed)
-emulator-5554 - 15 Tests 44/42 completed. (5 skipped) (0 failed)
-emulator-5554 - 15 Tests 45/42 completed. (5 skipped) (0 failed)
-Finished 47 tests on emulator-5554 - 15
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__reactivecircus_android-emulator-runner-1795466776504.json
+emulator-5554 - 15 Tests 47/46 completed. (6 skipped) (0 failed)
+emulator-5554 - 15 Tests 49/46 completed. (6 skipped) (0 failed)
+emulator-5554 - 15 Tests 50/46 completed. (6 skipped) (0 failed)
+Finished 52 tests on emulator-5554 - 15
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__reactivecircus_android-emulator-runner-1795471037257.json
 
-BUILD SUCCESSFUL in 4m 13s
+BUILD SUCCESSFUL in 4m 4s
 65 actionable tasks: 27 executed, 38 up-to-date
