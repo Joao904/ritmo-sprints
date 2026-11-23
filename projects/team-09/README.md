@@ -91,7 +91,7 @@ No Linux ou macOS, use `./gradlew` com os mesmos argumentos.
 | 04 | [Relatório](SPRINT-04.md) | [PR #41](https://github.com/brenofeliix/mobile-development-2026-2/pull/41) |
 | 05 | [Relatório](SPRINT-05.md) | [PR #42](https://github.com/brenofeliix/mobile-development-2026-2/pull/42) |
 | 06 | [Relatório](SPRINT-06.md) | [PR #45](https://github.com/brenofeliix/mobile-development-2026-2/pull/45) |
-| 07 | [Relatório](SPRINT-07.md) | PR_07_LINK |
+| 07 | [Relatório](SPRINT-07.md) | [PR #58](https://github.com/brenofeliix/mobile-development-2026-2/pull/58) |
 
 Cada relatório reúne a especificação, as decisões de implementação, os resultados de validação e as evidências do respectivo incremento. As especificações estão em `docs/specs/` e as capturas e os resultados de validação, em `evidence/`, organizados por sprint.
 

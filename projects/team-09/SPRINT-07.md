@@ -102,7 +102,7 @@ Compilação aprovada. **40 testes instrumentados** e **17 testes locais** aprov
 
 ## Entrega
 
-Branch: `team-09/sprint-07`. PR_07_LINK, com destino à `main` do repositório da disciplina.
+Branch: `team-09/sprint-07`. [Pull Request #58](https://github.com/brenofeliix/mobile-development-2026-2/pull/58), com destino à `main` do repositório da disciplina.
 
 ## Definition of Done
 
