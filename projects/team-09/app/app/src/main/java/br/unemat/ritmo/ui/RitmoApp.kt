@@ -35,7 +35,9 @@ fun RitmoApp(repository: SessionRepository) {
     val sessions by repository.sessions.collectAsState(initial = emptyList())
     val summary by repository.summary.collectAsState(initial = HistorySummary(0, 0))
     // Meta da semana: minutos salvos desde segunda-feira e a meta escolhida pelo estudante.
-    val weekStart = remember { WeeklyGoal.startOfWeek(System.currentTimeMillis()) }
+    // Sprint 07: recalculado a cada recomposição (cálculo barato), para a semana virar na segunda-feira
+    // mesmo com o app aberto; a consulta ao banco só é refeita quando o valor muda.
+    val weekStart = WeeklyGoal.startOfWeek(System.currentTimeMillis())
     val weekMinutes by remember(weekStart) { repository.minutesSince(weekStart) }.collectAsState(initial = 0)
     val context = LocalContext.current
     val goalStore = remember { GoalStore(context) }

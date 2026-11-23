@@ -27,6 +27,26 @@ find app/build/outputs/androidTest-results -name 'TEST-*.xml' -exec cp {} "$OUT/
 adb shell cmd alarm set-timezone America/Cuiaba || true
 adb shell date | tee "$OUT/device-date.txt"
 ./gradlew installDebug installDebugAndroidTest --console=plain
+
+# Sprint 07: abertura limpa (dados apagados), voltar na tela raiz e registro de travamentos.
+adb logcat -b crash -c || true
+LAUNCH="$OUT/clean-launch.txt"
+: > "$LAUNCH"
+adb shell pm clear "$APP" | tee -a "$LAUNCH"
+echo "== am start -W (abertura a frio, sem dados)" | tee -a "$LAUNCH"
+adb shell am start -W -n "$APP/.MainActivity" | tee -a "$LAUNCH"
+sleep 3
+echo "== atividade em primeiro plano depois de abrir" | tee -a "$LAUNCH"
+adb shell dumpsys activity activities | grep -E "topResumedActivity|mResumedActivity" | head -n 2 | tee -a "$LAUNCH" || true
+echo "processo do app: $(adb shell pidof $APP || echo 'nenhum')" | tee -a "$LAUNCH"
+echo "== tecla Voltar na tela inicial" | tee -a "$LAUNCH"
+adb shell input keyevent 4
+sleep 3
+adb shell dumpsys activity activities | grep -E "topResumedActivity|mResumedActivity" | head -n 2 | tee -a "$LAUNCH" || true
+echo "processo do app: $(adb shell pidof $APP || echo 'nenhum')" | tee -a "$LAUNCH"
+adb shell am force-stop "$APP"
+adb shell pm clear "$APP" | tee -a "$LAUNCH"
+
 LOG="$OUT/evidence-run.txt"
 : > "$LOG"
 for step in $EVIDENCE_STEPS; do
@@ -45,3 +65,7 @@ for f in $(adb shell run-as "$APP" ls files/evidence | tr -d '\r'); do
   adb exec-out run-as "$APP" cat "files/evidence/$f" > "$OUT/evidence/$f"
 done
 ls -la "$OUT/evidence"
+
+# Travamentos registrados pelo Android durante toda a execução (vazio = nenhum).
+adb logcat -b crash -d > "$OUT/crash-log.txt" || true
+echo "linhas no log de travamentos: $(wc -l < "$OUT/crash-log.txt")"

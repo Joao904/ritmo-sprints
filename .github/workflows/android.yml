@@ -9,7 +9,7 @@ on:
 env:
   # Passos de evidência executados em processos separados, na ordem
   # (o app é encerrado entre um passo e outro).
-  EVIDENCE_STEPS: "Sprint04Evidence#invalidInput Sprint04Evidence#validInput Sprint05Evidence#createData Sprint05Evidence#restoreData Sprint06Evidence#notificationDenied Sprint06Evidence#notificationAllowed ImprovementsEvidence#timer ImprovementsEvidence#history"
+  EVIDENCE_STEPS: "Sprint07Evidence#finalHome Sprint04Evidence#invalidInput Sprint04Evidence#validInput Sprint05Evidence#createData Sprint05Evidence#restoreData Sprint06Evidence#notificationDenied Sprint06Evidence#notificationAllowed ImprovementsEvidence#timer ImprovementsEvidence#history Sprint07Evidence#finalFeature Sprint07Evidence#finalHistory"
 
 jobs:
   validate:
