@@ -170,6 +170,7 @@ fun RitmoApp(repository: SessionRepository, requestedTab: String? = null, onTabO
                             if (result == SnackbarResult.ActionPerformed) repository.restore(deleted)
                         }
                     },
+                    onSaveNotes = { target, text -> scope.launch { repository.saveNotes(target, text) } },
                 )
             }
         }

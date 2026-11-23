@@ -20,6 +20,7 @@ fun HistoryScreen(
     weeklyGoal: Int,
     onWeeklyGoalChange: (Int) -> Unit,
     onDelete: (StudySession) -> Unit,
+    onSaveNotes: (StudySession, String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -37,7 +38,8 @@ fun HistoryScreen(
             weekMinutes = weekMinutes,
             weeklyGoal = weeklyGoal,
             onGoalChange = onWeeklyGoalChange,
-            onDelete = onDelete
+            onDelete = onDelete,
+            onSaveNotes = onSaveNotes
         )
     }
 }

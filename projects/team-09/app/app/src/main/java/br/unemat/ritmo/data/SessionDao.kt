@@ -15,6 +15,10 @@ interface SessionDao {
     @Delete
     suspend fun delete(session: StudySession)
 
+    /** Sprint 07: grava (ou apaga, com null) a anotação de uma sessão. */
+    @Query("UPDATE study_sessions SET notes = :notes WHERE id = :id")
+    suspend fun updateNotes(id: Long, notes: String?)
+
     /** Todas as sessões, mais recentes primeiro. O Flow emite de novo sempre que a tabela muda. */
     @Query("SELECT * FROM study_sessions ORDER BY created_at DESC, id DESC")
     fun observeAll(): Flow<List<StudySession>>

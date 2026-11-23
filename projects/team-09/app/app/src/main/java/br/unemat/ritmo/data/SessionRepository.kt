@@ -28,6 +28,10 @@ class SessionRepository(private val dao: SessionDao) {
 
     suspend fun delete(session: StudySession) = dao.delete(session)
 
+    /** Anotação do que foi estudado; texto vazio apaga a anotação. */
+    suspend fun saveNotes(session: StudySession, text: String) =
+        dao.updateNotes(session.id, text.trim().take(NOTES_MAX).ifEmpty { null })
+
     /** Desfazer a exclusão: grava de novo a mesma sessão, com o mesmo id e a mesma data. */
     suspend fun restore(session: StudySession) {
         dao.insert(session)
@@ -35,5 +39,6 @@ class SessionRepository(private val dao: SessionDao) {
 
     companion object {
         const val RECENT_LIMIT = 5
+        const val NOTES_MAX = 300
     }
 }

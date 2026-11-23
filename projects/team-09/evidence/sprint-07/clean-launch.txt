@@ -1,0 +1,16 @@
+Success
+== am start -W (abertura a frio, sem dados)
+Starting: Intent { cmp=br.unemat.ritmo/.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: br.unemat.ritmo/.MainActivity
+TotalTime: 2283
+WaitTime: 2288
+Complete
+== atividade em primeiro plano depois de abrir
+    topResumedActivity=ActivityRecord{84b2a10 u0 br.unemat.ritmo/.MainActivity t92}
+processo do app: 5341
+== tecla Voltar na tela inicial
+      topResumedActivity=ActivityRecord{871fb7 u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t7}
+processo do app: 5341
+Success

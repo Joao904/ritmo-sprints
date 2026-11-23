@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="br.unemat.ritmo.AlarmTest" tests="42" failures="0" errors="0" skipped="5" time="207.85" timestamp="2026-11-23T20:50:27" hostname="localhost">
+  <properties>
+    <property name="device" value="emulator-5554 - 15" />
+    <property name="flavor" value="" />
+    <property name="project" value=":app" />
+  </properties>
+  <testcase name="stopButtonOnTheNotificationSilencesTheAlarm" classname="br.unemat.ritmo.AlarmTest" time="13.857" />
+  <testcase name="startSchedulesTheAlarmAndPauseCancelsIt" classname="br.unemat.ritmo.AlarmTest" time="7.933" />
+  <testcase name="alarmRingsAtTheEndAndStops" classname="br.unemat.ritmo.AlarmTest" time="5.281" />
+  <testcase name="savingClearsTheTimerAndTheAlarm" classname="br.unemat.ritmo.AlarmTest" time="5.824" />
+  <testcase name="notificationButtonsPauseAndContinueTheTimer" classname="br.unemat.ritmo.AlarmTest" time="6.197" />
+  <testcase name="typedDurationSurvivesActivityRecreation" classname="br.unemat.ritmo.DurationTest" time="3.239" />
+  <testcase name="typedDurationIsUsedInThePlan" classname="br.unemat.ritmo.DurationTest" time="4.041" />
+  <testcase name="shortcutsFillTheFieldAndUpdateTheSummary" classname="br.unemat.ritmo.DurationTest" time="4.53" />
+  <testcase name="durationOutOfRangeShowsErrorAndStaysOnHome" classname="br.unemat.ritmo.DurationTest" time="7.218" />
+  <testcase name="fieldAcceptsOnlyDigits" classname="br.unemat.ritmo.DurationTest" time="3.993" />
+  <testcase name="completeJourneyFromLaunch" classname="br.unemat.ritmo.FinalRegressionTest" time="10.714" />
+  <testcase name="validInputWithoutGoalIsAccepted" classname="br.unemat.ritmo.FormTest" time="3.392" />
+  <testcase name="typedValuesSurviveBackNavigationAndRecreation" classname="br.unemat.ritmo.FormTest" time="5.024" />
+  <testcase name="longSubjectAndGoalShowMaximumErrors" classname="br.unemat.ritmo.FormTest" time="5.286" />
+  <testcase name="emptySubjectShowsErrorAndStaysOnHome" classname="br.unemat.ritmo.FormTest" time="1.99" />
+  <testcase name="validInputOpensPlanWithSubjectAndGoal" classname="br.unemat.ritmo.FormTest" time="3.304" />
+  <testcase name="errorDisappearsWhenInputIsCorrected" classname="br.unemat.ritmo.FormTest" time="3.449" />
+  <testcase name="shortSubjectShowsMinimumError" classname="br.unemat.ritmo.FormTest" time="3.897" />
+  <testcase name="savingAddsSessionToHistoryAndClearsTheForm" classname="br.unemat.ritmo.HistoryTest" time="4.634" />
+  <testcase name="weeklyGoalCountsSavedMinutesAndCanBeChanged" classname="br.unemat.ritmo.HistoryTest" time="8.516" />
+  <testcase name="emptyHistoryShowsHint" classname="br.unemat.ritmo.HistoryTest" time="1.877" />
+  <testcase name="doubleTapOnSaveStoresOneSession" classname="br.unemat.ritmo.HistoryTest" time="4.485" />
+  <testcase name="deleteRemovesTheSessionAndUndoBringsItBack" classname="br.unemat.ritmo.HistoryTest" time="6.417" />
+  <testcase name="homeReadsDatabaseNewestFirstLimitedToFive" classname="br.unemat.ritmo.HistoryTest" time="2.717" />
+  <testcase name="sessionWithoutGoalIsSavedWithoutGoalLine" classname="br.unemat.ritmo.HistoryTest" time="3.286" />
+  <testcase name="tabsSwitchAndKeepEachScreen" classname="br.unemat.ritmo.NavigationTest" time="6.043" />
+  <testcase name="timerTabWithoutSessionExplainsWhatToDo" classname="br.unemat.ritmo.NavigationTest" time="2.13" />
+  <testcase name="androidBackFromAnyTabReturnsToPlan" classname="br.unemat.ritmo.NavigationTest" time="4.643" />
+  <testcase name="rapidForwardTapsDoNotDuplicateTheDestination" classname="br.unemat.ritmo.NavigationTest" time="3.719" />
+  <testcase name="planOpensTheTimerTabWithTheChosenDuration" classname="br.unemat.ritmo.NavigationTest" time="7.846" />
+  <testcase name="recreationKeepsTabAndSession" classname="br.unemat.ritmo.NavigationTest" time="5.476" />
+  <testcase name="finalAlarm" classname="br.unemat.ritmo.Sprint07Evidence" time="1.654">
+    <skipped />
+  </testcase>
+  <testcase name="finalHistory" classname="br.unemat.ritmo.Sprint07Evidence" time="2.167">
+    <skipped />
+  </testcase>
+  <testcase name="timerAfterRestart" classname="br.unemat.ritmo.Sprint07Evidence" time="2.812">
+    <skipped />
+  </testcase>
+  <testcase name="finalHome" classname="br.unemat.ritmo.Sprint07Evidence" time="2.369">
+    <skipped />
+  </testcase>
+  <testcase name="timerStart" classname="br.unemat.ritmo.Sprint07Evidence" time="2.861">
+    <skipped />
+  </testcase>
+  <testcase name="timerStartsAtTheChosenDuration" classname="br.unemat.ritmo.TimerTest" time="3.866" />
+  <testcase name="timerKeepsRunningWhenLeavingTheTab" classname="br.unemat.ritmo.TimerTest" time="6.999" />
+  <testcase name="runningTimerIsSavedOutsideTheScreen" classname="br.unemat.ritmo.TimerTest" time="5.123" />
+  <testcase name="runningTimerSurvivesRecreation" classname="br.unemat.ritmo.TimerTest" time="6.565" />
+  <testcase name="startPauseContinueAndReset" classname="br.unemat.ritmo.TimerTest" time="7.913" />
+  <testcase name="presentationAndPrimaryActionAreVisible" classname="br.unemat.ritmo.WelcomeTest" time="1.735" />
+</testsuite>

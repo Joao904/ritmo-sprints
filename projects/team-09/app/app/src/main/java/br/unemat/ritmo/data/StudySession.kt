@@ -14,6 +14,8 @@ data class StudySession(
     val minutes: Int,
     /** Momento em que a sessão foi salva, em milissegundos desde 1970 (System.currentTimeMillis). */
     @ColumnInfo(name = "created_at") val createdAt: Long,
+    /** Sprint 07: o que o estudante fez de fato, anotado depois de salvar (opcional). */
+    val notes: String? = null,
 )
 
 /** Totais do histórico, calculados pelo banco. */
