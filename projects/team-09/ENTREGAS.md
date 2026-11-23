@@ -9,7 +9,8 @@
 | 04 | [Relatório](SPRINT-04.md) | `team-09/sprint-04` | [#41](https://github.com/brenofeliix/mobile-development-2026-2/pull/41) |
 | 05 | [Relatório](SPRINT-05.md) | `team-09/sprint-05` | [#42](https://github.com/brenofeliix/mobile-development-2026-2/pull/42) |
 | 06 | [Relatório](SPRINT-06.md) | `team-09/sprint-06` | [#45](https://github.com/brenofeliix/mobile-development-2026-2/pull/45) |
+| 07 | [Relatório](SPRINT-07.md) | `team-09/sprint-07` | PR_07_LINK |
 
-As branches registram incrementos do mesmo aplicativo. Os PRs têm como destino a `main` do repositório da disciplina e podem ser revisados na ordem 00 → 01 → 02 → 03 → 04 → 05 → 06.
+As branches registram incrementos do mesmo aplicativo. Os PRs têm como destino a `main` do repositório da disciplina e podem ser revisados na ordem 00 → 01 → 02 → 03 → 04 → 05 → 06 → 07. A Sprint 07 é a entrega final.
 
 O [README](README.md) contém as instruções para executar o projeto. As especificações estão em `docs/specs/`, e as capturas e resultados de validação estão em `evidence/`, organizados por sprint.

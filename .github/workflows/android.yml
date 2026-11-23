@@ -42,6 +42,8 @@ jobs:
           ./gradlew assembleDebug testDebugUnitTest lintDebug --console=plain 2>&1 | tee "$GITHUB_WORKSPACE/ci-out/build-unit-lint.txt"
           find app/build/test-results -name 'TEST-*.xml' -exec cp {} "$GITHUB_WORKSPACE/ci-out/" \; || true
           cp app/build/reports/lint-results-debug.txt "$GITHUB_WORKSPACE/ci-out/" 2>/dev/null || true
+          # APK para o teste manual da equipe em aparelho real (fica só no artefato, fora do repositório).
+          cp app/build/outputs/apk/debug/app-debug.apk "$GITHUB_WORKSPACE/ci-out/ritmo.apk" || true
 
       - name: Instrumented tests and evidence (Pixel 6, API 35)
         uses: reactivecircus/android-emulator-runner@v2
