@@ -30,6 +30,7 @@ Estudantes universitários, incluindo alunos da UNEMAT, que estudam em intervalo
 | Alarme no fim do tempo, marcado sozinho ao começar: toca por até 1 minuto ou até tocar em Parar | Cronômetro e notificação | [SPEC-007](docs/specs/SPEC-007.md) |
 | Contagem regressiva na notificação, com Pausar e Continuar | Notificação | [SPEC-007](docs/specs/SPEC-007.md) |
 | Histórico salvo no aparelho, com totais, Excluir (com Desfazer) e Ver todas | Histórico | [SPEC-005](docs/specs/SPEC-005.md) |
+| Anotação do que foi estudado: tocar na sessão abre os detalhes, e Anotar abre a edição | Histórico | [SPEC-007](docs/specs/SPEC-007.md) |
 | Meta da semana, ajustável de 30 em 30 min | Histórico | [SPEC-006](docs/specs/SPEC-006.md) |
 
 ![Tela inicial](evidence/sprint-07/final-home.png)
@@ -38,7 +39,7 @@ Estudantes universitários, incluindo alunos da UNEMAT, que estudam em intervalo
 
 - Kotlin 2.1.20 e Jetpack Compose (Material 3)
 - Navigation Compose 2.8.9
-- Room 2.7.1 (histórico) e SharedPreferences (meta da semana)
+- Room 2.7.1 (histórico, com migração da versão 1 para a 2) e SharedPreferences (meta da semana e cronômetro)
 - AlarmManager e notificações do Android (alarme do fim e contagem na notificação)
 - Testes: JUnit, Compose UI Test, Espresso e UiAutomator
 - Android Gradle Plugin 8.9.1 e Gradle 8.11.1 (wrapper incluído)
@@ -74,7 +75,7 @@ No Linux ou macOS, use `./gradlew` com os mesmos argumentos.
 - Se o app for forçado a parar nas configurações do Android, ou se o celular for reiniciado, o alarme marcado é apagado pelo sistema. Ao abrir o Ritmo de novo, o cronômetro volta no tempo certo e o alarme é remarcado. Fechar o app pela tela de apps recentes não afeta o alarme.
 - No Android 7 (API 24 e 25), o som do alarme se repete até a notificação ser fechada, sem o limite de 1 minuto.
 - Só existe uma sessão por vez: planejar outra com o cronômetro já começado pede confirmação e descarta o cronômetro anterior.
-- As sessões não podem ser editadas, só excluídas.
+- Da sessão salva, só a anotação pode ser editada; assunto, objetivo e duração não mudam depois de salvar.
 - Os dados ficam apenas no aparelho: não há login nem sincronização, e desinstalar o app apaga o histórico.
 - O app está só em português.
 - A validação foi feita em um Pixel 6 virtual com Android 15/API 35 (GitHub Actions). O lint não aponta erros; os avisos restantes são, em sua maioria, versões mais novas de bibliotecas, mantidas por compatibilidade com o Kotlin 2.1.20.

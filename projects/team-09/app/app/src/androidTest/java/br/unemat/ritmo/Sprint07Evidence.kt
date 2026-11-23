@@ -21,7 +21,7 @@ import java.util.regex.Pattern
 /**
  * Gera as capturas da Sprint 07. Cada passo roda em um processo novo do app (o script fecha o app entre
  * um passo e outro) e começa sem a permissão de notificação, então a janela de permissão do sistema aparece de verdade.
- * Ordem no script: finalHome, timerStart, timerAfterRestart, finalAlarm, finalHistory.
+ * Ordem no script: finalHome, timerStart, timerAfterRestart, finalAlarm, finalHistory, finalNotes.
  */
 class Sprint07Evidence {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
@@ -120,5 +120,17 @@ class Sprint07Evidence {
         compose.waitUntil(10_000) { compose.onAllNodesWithText("Sessão salva no histórico.").fetchSemanticsNodes().isEmpty() }
         compose.onNodeWithText("Inglês — phrasal verbs").performScrollTo()
         Evidence.screenshot("final-history")
+    }
+
+    /** Anotação: toca na sessão salva no passo anterior, anota o que foi feito e captura a janela de detalhes. */
+    @Test fun finalNotes() {
+        compose.openTab("Histórico")
+        compose.waitForText("5 sessões salvas", substring = true)
+        compose.onNodeWithText("Cálculo I — limites").performScrollTo().performClick()
+        compose.onNodeWithText("Anotar").performClick()
+        compose.onNodeWithText("Anotação").performTextInput("Fiz os exercícios 1 a 5 da lista de limites e revisei a definição pelo livro.")
+        compose.onNodeWithText("Salvar anotação").performClick()
+        compose.waitForText("Fiz os exercícios 1 a 5", substring = true)
+        Evidence.screenshot("final-notes")
     }
 }

@@ -9,7 +9,7 @@
 
 **Problema:** Ao longo de seis sprints, o Ritmo ganhou várias funções: tela inicial, escolha da duração, navegação para o plano, formulário com validação, histórico salvo no aparelho, aviso por notificação, cronômetro e meta da semana. Cada sprint foi validada de forma isolada. Falta confirmar que o produto inteiro funciona em conjunto, do momento em que o app abre até a sessão ser salva.<br>
 **Usuários:** Estudantes universitários, incluindo alunos da UNEMAT.<br>
-**Contexto:** Entrega final da disciplina. Esta SPEC define os critérios de qualidade que o app completo precisa cumprir. Ao usar o app em um celular real, a equipe encontrou três falhas de uso que os testes anteriores não cobriam: (1) nada tocava quando o cronômetro chegava a zero; (2) o app era uma tela longa só, sem como alternar entre planejar, cronometrar e ver o histórico; (3) sair da tela do plano descartava o cronômetro. As correções entram nos requisitos FR-09 a FR-12.
+**Contexto:** Entrega final da disciplina. Esta SPEC define os critérios de qualidade que o app completo precisa cumprir. Ao usar o app em um celular real, a equipe encontrou três falhas de uso que os testes anteriores não cobriam: (1) nada tocava quando o cronômetro chegava a zero; (2) o app era uma tela longa só, sem como alternar entre planejar, cronometrar e ver o histórico; (3) sair da tela do plano descartava o cronômetro. As correções entram nos requisitos FR-09 a FR-12. A equipe também pediu um lugar para registrar o que foi feito em cada sessão (FR-13).
 
 ## 2. Objective
 
@@ -71,6 +71,10 @@ Começar ou Continuar marcam o alarme no horário exato do fim (AlarmManager); P
 
 Com o cronômetro rodando, uma notificação fixa mostra o assunto, a contagem regressiva e o botão Pausar. Pausado, mostra o tempo que falta e o botão Continuar. Tocar nela abre a aba Cronômetro.
 
+### FR-13 — Anotação do que foi estudado
+
+Na aba Histórico, tocar em uma sessão abre uma janela com tempo, data, objetivo e **o que o estudante fez**. O botão Anotar (ou Editar anotação) abre outra janela para escrever até 300 caracteres. Na lista, a sessão continua compacta: só aparece a marca “Com anotação”. A anotação fica no banco (coluna `notes`, versão 2); a migração da versão 1 mantém as sessões já salvas.
+
 ### FR-08 — Repositório limpo e reproduzível
 
 Sem `.idea/`, `.gradle/`, `build/`, `local.properties`, chaves, tokens ou senhas. O Gradle Wrapper fica no repositório, e o README explica como compilar e executar.
@@ -105,6 +109,7 @@ Login, sincronização em nuvem, edição de sessões, várias sessões ao mesmo
 | AC-16 | FR-10 | O cronômetro continua ao trocar de aba e depois de o processo do app ser encerrado. |
 | AC-17 | FR-11 | Começar marca o alarme, Pausar desmarca, e no fim o alarme toca (som repetido, até 1 minuto) e para com Parar. |
 | AC-18 | FR-12 | A notificação mostra a contagem com Pausar/Continuar. |
+| AC-19 | FR-13 | A anotação é escrita, editada e mantida; um banco da versão 1 é migrado sem perder sessões. |
 
 ## 8. Regression Script
 
@@ -135,6 +140,7 @@ Executado a partir de uma abertura limpa (dados do app apagados com `pm clear`):
 | Abas (FR-09) | `ui/RitmoApp.kt` (`NavigationBar` + `NavHost`) | `NavigationTest`, `final-home.png` |
 | Alarme (FR-11) | `timer/AlarmScheduler.kt` (`TimerReceiver`), `timer/TimerNotifications.kt` | `AlarmTest`, `final-alarm.png` |
 | Contagem na notificação (FR-12) | `timer/TimerNotifications.kt` | `AlarmTest`, `final-notification-countdown.png` |
+| Anotação (FR-13) | `ui/HistorySection.kt` (`SessionDetailsDialog`, `NotesDialog`), `data/RitmoDatabase.kt` (`MIGRATION_1_2`) | `NotesTest`, `final-notes.png` |
 | Qualidade final (SPEC-007) | — | `FinalRegressionTest`, `crash-log.txt`, `final-validation.md` |
 
 ## 10. Validation Plan
