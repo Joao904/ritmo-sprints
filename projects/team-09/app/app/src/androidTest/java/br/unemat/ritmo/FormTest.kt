@@ -35,6 +35,7 @@ class FormTest {
     @Test fun longSubjectAndGoalShowMaximumErrors() {
         typeSubject("a".repeat(41))
         compose.onNodeWithText("Objetivo (opcional)").performScrollTo().performTextInput("b".repeat(81))
+        closeSoftKeyboard()
         tapPlan()
         compose.onNodeWithText("Use no máximo 40 caracteres.").performScrollTo().assertIsDisplayed()
         compose.onNodeWithText("Use no máximo 80 caracteres.").performScrollTo().assertIsDisplayed()
@@ -54,6 +55,7 @@ class FormTest {
         compose.onNodeWithText("45 min").performScrollTo().performClick()
         typeSubject("  Cálculo I  ")
         compose.onNodeWithText("Objetivo (opcional)").performScrollTo().performTextInput("resolver 5 exercícios")
+        closeSoftKeyboard()
         tapPlan()
         compose.onNodeWithText("Seu plano").assertIsDisplayed()
         compose.onNodeWithText("45 minutos").assertIsDisplayed()

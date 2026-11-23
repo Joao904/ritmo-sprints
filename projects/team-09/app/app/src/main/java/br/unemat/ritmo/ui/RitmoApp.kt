@@ -66,12 +66,13 @@ fun RitmoApp(repository: SessionRepository, requestedTab: String? = null, onTabO
 
     val backStack by navController.currentBackStackEntryAsState()
     val currentRoute = backStack?.destination?.route
-    fun openTab(route: String) {
+    /** [restore] = false abre a aba do topo (sessão nova ou recém-salva), sem a rolagem da última visita. */
+    fun openTab(route: String, restore: Boolean = true) {
         navController.navigate(route) {
             // Abas: voltar sempre leva a Planejar, e cada aba guarda a própria rolagem.
             popUpTo(navController.graph.findStartDestination().id) { saveState = true }
             launchSingleTop = true
-            restoreState = true
+            restoreState = restore
         }
     }
     LaunchedEffect(requestedTab) {
@@ -83,7 +84,7 @@ fun RitmoApp(repository: SessionRepository, requestedTab: String? = null, onTabO
 
     fun planSession() {
         SessionClock.plan(context, subject, goal, minutesText.trim().toInt())
-        openTab(TAB_TIMER)
+        openTab(TAB_TIMER, restore = false)
     }
 
     Scaffold(
@@ -139,7 +140,7 @@ fun RitmoApp(repository: SessionRepository, requestedTab: String? = null, onTabO
                     session = session,
                     onSave = { saved ->
                         SessionClock.clear(context)
-                        openTab(TAB_HISTORY)
+                        openTab(TAB_HISTORY, restore = false)
                         // Room runs the insert off the main thread (suspend function).
                         scope.launch {
                             repository.save(saved.subject, saved.goal, saved.minutes)
