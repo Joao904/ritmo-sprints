@@ -11,6 +11,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain
 
+/** Sprint 07: salvar leva à aba Histórico, onde ficam a meta da semana e as sessões. */
 class HistoryTest {
     private val compose = createAndroidComposeRule<MainActivity>()
 
@@ -38,6 +39,7 @@ class HistoryTest {
     }
 
     @Test fun emptyHistoryShowsHint() {
+        compose.openTab("Histórico")
         compose.onNodeWithText("Seu histórico").performScrollTo().assertIsDisplayed()
         compose.onNodeWithText("Nenhuma sessão salva ainda.", substring = true).assertExists()
     }
@@ -80,7 +82,9 @@ class HistoryTest {
     }
 
     @Test fun weeklyGoalCountsSavedMinutesAndCanBeChanged() {
+        compose.openTab("Histórico")
         compose.onNodeWithText("0 min de 5 h").performScrollTo().assertIsDisplayed()
+        compose.openTab("Planejar")
         planAndSave(45, "Bioquímica")
         waitForText("45 min de 5 h")
         waitForSavedMessageToClose()
@@ -102,6 +106,7 @@ class HistoryTest {
                 dao.insert(StudySession(subject = "Tema $n", goal = null, minutes = 15, createdAt = n * 60_000L))
             }
         }
+        compose.openTab("Histórico")
         waitForText("6 sessões salvas · 90 minutos no total")
         compose.onNodeWithText("Tema 6").assertExists()
         compose.onNodeWithText("Tema 2").assertExists()

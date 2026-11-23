@@ -1,15 +1,16 @@
 package br.unemat.ritmo
 
+import android.content.Intent
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.test.espresso.Espresso.closeSoftKeyboard
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
 import br.unemat.ritmo.data.RitmoDatabase
 import br.unemat.ritmo.data.StudySession
-import br.unemat.ritmo.reminder.SessionReminder
+import br.unemat.ritmo.timer.SessionClock
+import br.unemat.ritmo.timer.TimerReceiver
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -18,9 +19,9 @@ import org.junit.Test
 import java.util.regex.Pattern
 
 /**
- * Gera final-home.png, final-feature.png e final-history.png.
- * O script de validação limpa os dados do app antes do primeiro passo e retira a permissão
- * de notificação antes de cada passo, então a janela de permissão do sistema aparece de verdade.
+ * Gera as capturas da Sprint 07. Cada passo roda em um processo novo do app (o script fecha o app entre
+ * um passo e outro) e começa sem a permissão de notificação, então a janela de permissão do sistema aparece de verdade.
+ * Ordem no script: finalHome, timerStart, timerAfterRestart, finalAlarm, finalHistory.
  */
 class Sprint07Evidence {
     @get:Rule val compose = createAndroidComposeRule<MainActivity>()
@@ -28,43 +29,78 @@ class Sprint07Evidence {
     @Before fun onlyWhenRequested() = Evidence.requireEvidenceRun()
 
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
+    private val context get() = instrumentation.targetContext
+    private val device get() = UiDevice.getInstance(instrumentation)
 
-    private fun waitForText(text: String, substring: Boolean = false) =
-        compose.waitUntil(10_000) { compose.onAllNodesWithText(text, substring).fetchSemanticsNodes().isNotEmpty() }
+    private fun allowInSystemDialog() {
+        val allow = device.wait(Until.findObject(By.res("com.android.permissioncontroller", "permission_allow_button")), 10_000)
+            ?: device.wait(Until.findObject(By.text(Pattern.compile("(?i)^allow$|^permitir$"))), 5_000)
+        assertNotNull("janela de permissão não apareceu", allow)
+        allow.click()
+    }
 
-    /** Tela inicial logo depois de abrir o app, sem nenhum dado. */
+    /** O script retira a permissão antes de cada passo; aqui ela é concedida de novo pelo cartão do alarme. */
+    private fun allowFromAlarmCard() {
+        compose.waitForIdle()
+        if (compose.onAllNodesWithText("Permitir").fetchSemanticsNodes().isNotEmpty()) {
+            compose.tap("Permitir")
+            allowInSystemDialog()
+            compose.waitForText("Alarme marcado para", substring = true)
+        }
+    }
+
+    /** Aba Planejar logo depois de abrir o app, sem nenhum dado. */
     @Test fun finalHome() {
         compose.onNodeWithText("Planejar meu estudo").assertExists()
         Evidence.screenshot("final-home")
     }
 
-    /** Função principal: plano com cronômetro rodando e aviso de fim marcado (permissão dada na janela do sistema). */
-    @Test fun finalFeature() {
-        compose.onNodeWithText("Minutos").performScrollTo().performTextReplacement("50")
-        compose.onNodeWithText("Assunto").performScrollTo().performTextReplacement("Cálculo I — limites")
-        compose.onNodeWithText("Objetivo (opcional)").performScrollTo().performTextReplacement("resolver 5 exercícios")
-        closeSoftKeyboard()
-        compose.onNodeWithText("Planejar meu estudo").performScrollTo().performClick()
-        compose.onNodeWithText("Começar").performScrollTo().performClick()
-        compose.onNodeWithText("Avisar quando acabar").performScrollTo().performClick()
-
-        val device = UiDevice.getInstance(instrumentation)
-        val allow = device.wait(Until.findObject(By.res("com.android.permissioncontroller", "permission_allow_button")), 10_000)
-            ?: device.wait(Until.findObject(By.text(Pattern.compile("(?i)^allow$|^permitir$"))), 5_000)
-        assertNotNull("janela de permissão não apareceu", allow)
-        allow.click()
-
-        waitForText("Aviso marcado para", substring = true)
+    /** Planeja 50 min e começa o cronômetro; a permissão é concedida na janela do sistema. */
+    @Test fun timerStart() {
+        compose.planSession("50", "Cálculo I — limites", "resolver 5 exercícios")
+        compose.tap("Começar")
+        allowInSystemDialog()
+        compose.waitForText("Alarme marcado para", substring = true)
         Thread.sleep(5_000) // deixa o cronômetro andar alguns segundos
-        compose.onNodeWithText("Cancelar aviso").performScrollTo()
+        compose.onNodeWithText("Alarme marcado para", substring = true).performScrollTo()
         Evidence.screenshot("final-feature")
-        SessionReminder.cancel(instrumentation.targetContext)
+        // A contagem também aparece na notificação fixa, com o botão Pausar.
+        device.openNotification()
+        assertNotNull(device.wait(Until.findObject(By.textContains("Estudando: Cálculo I")), 10_000))
+        Thread.sleep(1_000)
+        Evidence.screenshot("final-notification-countdown")
+        device.pressBack()
+    }
+
+    /** Processo novo: o app foi fechado no passo anterior e o cronômetro continuou rodando. */
+    @Test fun timerAfterRestart() {
+        compose.openTab("Cronômetro")
+        compose.waitForText("Cronômetro rodando.")
+        compose.onNodeWithText("Pausar").performScrollTo()
+        Evidence.screenshot("final-timer-after-restart")
+    }
+
+    /** Fim do tempo: o mesmo aviso que o AlarmManager entrega, sem esperar os 50 minutos. */
+    @Test fun finalAlarm() {
+        compose.openTab("Cronômetro")
+        compose.waitForText("Cronômetro rodando.")
+        allowFromAlarmCard()
+        instrumentation.runOnMainSync {
+            TimerReceiver().onReceive(context, Intent(context, TimerReceiver::class.java).setAction(TimerReceiver.ACTION_ALARM))
+        }
+        compose.waitForText("Tempo esgotado. Hora de fazer uma pausa.")
+        device.openNotification()
+        assertNotNull(device.wait(Until.findObject(By.textContains("Sessão concluída")), 10_000))
+        Thread.sleep(1_000)
+        Evidence.screenshot("final-alarm")
+        device.pressBack()
+        SessionClock.stopAlarm(context)
     }
 
     /** Histórico e meta da semana: 4 sessões anteriores gravadas no banco e 1 salva pela interface. */
     @Test fun finalHistory() {
         ClearDatabaseRule.clear()
-        val dao = RitmoDatabase.get(instrumentation.targetContext).sessionDao()
+        val dao = RitmoDatabase.get(context).sessionDao()
         val now = System.currentTimeMillis()
         val minute = 60_000L
         runBlocking {
@@ -77,18 +113,11 @@ class Sprint07Evidence {
                 dao.insert(StudySession(subject = subject, goal = goal, minutes = minutes, createdAt = now - (5 - index) * 15 * minute))
             }
         }
-        waitForText("4 sessões salvas", substring = true)
-
-        compose.onNodeWithText("Minutos").performScrollTo().performTextReplacement("50")
-        compose.onNodeWithText("Assunto").performScrollTo().performTextReplacement("Cálculo I — limites")
-        compose.onNodeWithText("Objetivo (opcional)").performScrollTo().performTextReplacement("resolver 5 exercícios")
-        closeSoftKeyboard()
-        compose.onNodeWithText("Planejar meu estudo").performScrollTo().performClick()
-        compose.onNodeWithText("Salvar no histórico").performScrollTo().performClick()
-        waitForText("5 sessões salvas", substring = true)
+        compose.planSession("50", "Cálculo I — limites", "resolver 5 exercícios")
+        compose.tap("Salvar no histórico")
+        compose.waitForText("5 sessões salvas", substring = true)
         // Espera a mensagem "Sessão salva no histórico." sumir para ela não cobrir a lista.
         compose.waitUntil(10_000) { compose.onAllNodesWithText("Sessão salva no histórico.").fetchSemanticsNodes().isEmpty() }
-        // Rola até a sessão mais antiga: a lista inteira fica na tela, com a meta da semana logo acima.
         compose.onNodeWithText("Inglês — phrasal verbs").performScrollTo()
         Evidence.screenshot("final-history")
     }

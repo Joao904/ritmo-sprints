@@ -7,7 +7,8 @@ import org.junit.Rule
 import org.junit.Test
 
 class DurationTest {
-    @get:Rule val compose = createAndroidComposeRule<MainActivity>()
+    @get:Rule(order = 0) val clear = ClearDatabaseRule()
+    @get:Rule(order = 1) val compose = createAndroidComposeRule<MainActivity>()
 
     private fun typeMinutes(text: String) {
         compose.onNodeWithText("Minutos").performScrollTo().performTextReplacement(text)

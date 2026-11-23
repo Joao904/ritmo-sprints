@@ -7,9 +7,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import br.unemat.ritmo.data.HistorySummary
-import br.unemat.ritmo.data.StudySession
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,51 +24,37 @@ fun WelcomeScreen(
     onSubjectChange: (String) -> Unit,
     onGoalChange: (String) -> Unit,
     onPlan: () -> Unit,
-    summary: HistorySummary,
-    sessions: List<StudySession>,
-    weekMinutes: Int,
-    weeklyGoal: Int,
-    onWeeklyGoalChange: (Int) -> Unit,
-    onDelete: (StudySession) -> Unit,
-    snackbarHostState: SnackbarHostState,
     modifier: Modifier = Modifier
 ) {
-    Scaffold(containerColor = Paper, snackbarHost = { SnackbarHost(snackbarHostState) }) { padding ->
-        Column(
-            modifier.fillMaxSize().padding(padding).imePadding().verticalScroll(rememberScrollState()).padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(24.dp)
-        ) {
-            Brand()
-            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                Text("MENOS PRESSA. MAIS PRESENÇA.", style = MaterialTheme.typography.labelSmall, color = Muted)
-                Text("Estude no\nseu ritmo.", style = MaterialTheme.typography.headlineLarge)
-                Text("Uma sessão de cada vez.\nTransforme alguns minutos livres em um plano de estudo possível.",
-                    style = MaterialTheme.typography.bodyLarge, color = Muted)
-            }
-            FocusCard()
-            DurationPicker(minutesText = minutesText, showErrors = showErrors, onMinutesChange = onMinutesChange)
-            SessionForm(
-                subject = subject,
-                goal = goal,
-                showErrors = showErrors,
-                onSubjectChange = onSubjectChange,
-                onGoalChange = onGoalChange
-            )
-            val focusManager = LocalFocusManager.current
-            // Clearing focus closes the keyboard before validating/navigating.
-            Button(onClick = { focusManager.clearFocus(); onPlan() }, modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp), shape = RoundedCornerShape(18.dp)) {
-                Text("Planejar meu estudo", style = MaterialTheme.typography.titleMedium)
-            }
-            Text("Seu tempo. Seu próximo passo.", style = MaterialTheme.typography.labelMedium, color = Muted)
-            HistorySection(
-                summary = summary,
-                sessions = sessions,
-                weekMinutes = weekMinutes,
-                weeklyGoal = weeklyGoal,
-                onGoalChange = onWeeklyGoalChange,
-                onDelete = onDelete
-            )
+    // Sprint 07: aba Planejar. O histórico e a meta da semana foram para a aba Histórico.
+    Column(
+        modifier.fillMaxSize().imePadding().verticalScroll(rememberScrollState()).padding(24.dp),
+        verticalArrangement = Arrangement.spacedBy(24.dp)
+    ) {
+        Brand()
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Text("MENOS PRESSA. MAIS PRESENÇA.", style = MaterialTheme.typography.labelSmall, color = Muted)
+            Text("Estude no
+seu ritmo.", style = MaterialTheme.typography.headlineLarge)
+            Text("Uma sessão de cada vez.
+Transforme alguns minutos livres em um plano de estudo possível.",
+                style = MaterialTheme.typography.bodyLarge, color = Muted)
         }
+        FocusCard()
+        DurationPicker(minutesText = minutesText, showErrors = showErrors, onMinutesChange = onMinutesChange)
+        SessionForm(
+            subject = subject,
+            goal = goal,
+            showErrors = showErrors,
+            onSubjectChange = onSubjectChange,
+            onGoalChange = onGoalChange
+        )
+        val focusManager = LocalFocusManager.current
+        // Clearing focus closes the keyboard before validating/navigating.
+        Button(onClick = { focusManager.clearFocus(); onPlan() }, modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp), shape = RoundedCornerShape(18.dp)) {
+            Text("Planejar meu estudo", style = MaterialTheme.typography.titleMedium)
+        }
+        Text("Seu tempo. Seu próximo passo.", style = MaterialTheme.typography.labelMedium, color = Muted)
     }
 }
 
@@ -108,13 +91,5 @@ private fun FocusCard() {
 @Preview(showBackground = true)
 @Composable
 private fun WelcomePreview() {
-    RitmoTheme {
-        WelcomeScreen(
-            "25", {}, "Cálculo I", "", false, {}, {}, {},
-            summary = HistorySummary(1, 25),
-            sessions = listOf(StudySession(1, "Cálculo I", "resolver 5 exercícios", 25, 0L)),
-            weekMinutes = 25, weeklyGoal = 300, onWeeklyGoalChange = {}, onDelete = {},
-            snackbarHostState = remember { SnackbarHostState() }
-        )
-    }
+    RitmoTheme { Surface(color = Paper) { WelcomeScreen("25", {}, "Cálculo I", "", false, {}, {}, {}) } }
 }

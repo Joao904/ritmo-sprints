@@ -2,13 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Sprint 06: aviso de fim da sessão (pedido em tempo de execução no Android 13+). -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Sprint 07: alarme no horário exato do fim da sessão (USE_EXACT_ALARM no Android 13+, concedida na instalação). -->
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <application android:allowBackup="false" android:label="@string/app_name"
         android:icon="@drawable/ic_ritmo" android:supportsRtl="true" android:theme="@style/Theme.Ritmo">
-        <activity android:name=".MainActivity" android:exported="true">
+        <activity android:name=".MainActivity" android:exported="true" android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- Sprint 07: alarme do fim e botões das notificações (Pausar, Continuar e Parar). -->
+        <receiver android:name=".timer.TimerReceiver" android:exported="false" />
     </application>
 </manifest>

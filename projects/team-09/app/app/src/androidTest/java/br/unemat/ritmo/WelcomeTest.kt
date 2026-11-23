@@ -6,7 +6,8 @@ import org.junit.Rule
 import org.junit.Test
 
 class WelcomeTest {
-    @get:Rule val compose = createAndroidComposeRule<MainActivity>()
+    @get:Rule(order = 0) val clear = ClearDatabaseRule()
+    @get:Rule(order = 1) val compose = createAndroidComposeRule<MainActivity>()
 
     @Test fun presentationAndPrimaryActionAreVisible() {
         compose.onNodeWithText("Ritmo").assertIsDisplayed()
@@ -14,5 +15,7 @@ class WelcomeTest {
         compose.onNodeWithText("Uma sessão de cada vez.", substring = true).assertIsDisplayed()
         compose.onNodeWithText("Planejar meu estudo").performScrollTo().assertIsDisplayed()
         compose.onNodeWithText("Ritmo").assertExists()
+        // Sprint 07: barra de abas.
+        listOf("Planejar", "Cronômetro", "Histórico").forEach { compose.onNodeWithText(it).assertIsDisplayed() }
     }
 }

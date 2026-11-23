@@ -8,7 +8,8 @@ import org.junit.Rule
 import org.junit.Test
 
 class FormTest {
-    @get:Rule val compose = createAndroidComposeRule<MainActivity>()
+    @get:Rule(order = 0) val clear = ClearDatabaseRule()
+    @get:Rule(order = 1) val compose = createAndroidComposeRule<MainActivity>()
 
     private fun tapPlan() =
         compose.onNodeWithText("Planejar meu estudo").performScrollTo().performClick()
