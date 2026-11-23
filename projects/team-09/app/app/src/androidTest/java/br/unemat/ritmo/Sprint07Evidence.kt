@@ -55,7 +55,7 @@ class Sprint07Evidence {
         allow.click()
 
         waitForText("Aviso marcado para", substring = true)
-        Thread.sleep(2_000) // deixa o cronômetro andar alguns segundos
+        Thread.sleep(5_000) // deixa o cronômetro andar alguns segundos
         compose.onNodeWithText("Cancelar aviso").performScrollTo()
         Evidence.screenshot("final-feature")
         SessionReminder.cancel(instrumentation.targetContext)
@@ -88,8 +88,8 @@ class Sprint07Evidence {
         waitForText("5 sessões salvas", substring = true)
         // Espera a mensagem "Sessão salva no histórico." sumir para ela não cobrir a lista.
         compose.waitUntil(10_000) { compose.onAllNodesWithText("Sessão salva no histórico.").fetchSemanticsNodes().isEmpty() }
-        compose.onNodeWithText("META DA SEMANA").performScrollTo()
-        compose.onNodeWithText("Seu histórico").performScrollTo()
+        // Rola até a sessão mais antiga: a lista inteira fica na tela, com a meta da semana logo acima.
+        compose.onNodeWithText("Inglês — phrasal verbs").performScrollTo()
         Evidence.screenshot("final-history")
     }
 }
