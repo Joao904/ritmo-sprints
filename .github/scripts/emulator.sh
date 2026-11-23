@@ -13,11 +13,28 @@ adb shell getprop ro.build.version.sdk | tee -a "$OUT/device.txt"
 
 # Janelas de erro do sistema (ex.: "System UI não está respondendo") roubam o foco e derrubam os testes.
 adb shell settings put global hide_error_dialogs 1 || true
+# Espera o Android terminar de ligar e dá um tempo para o sistema assentar antes dos testes.
+until [ "$(adb shell getprop sys.boot_completed | tr -d '\r')" = "1" ]; do sleep 2; done
+sleep 30
 adb shell input keyevent 82 || true
+adb shell input keyevent 3 || true
+adb shell am broadcast -a android.intent.action.CLOSE_SYSTEM_DIALOGS >/dev/null 2>&1 || true
+adb shell dumpsys window | grep -E "mCurrentFocus|mFocusedApp" | tee "$OUT/focus-before-tests.txt" || true
 
 # 1) Todos os testes instrumentados (as classes *Evidence são ignoradas aqui).
 status=0
 ./gradlew connectedDebugAndroidTest --console=plain 2>&1 | tee "$OUT/connected-tests.txt" || status=$?
+if [ "$status" -ne 0 ]; then
+  # Uma segunda tentativa só para falhas do emulador (ex.: janela do sistema com o foco); o log da primeira fica guardado.
+  echo "Primeira execução falhou; janela em foco:" | tee "$OUT/connected-tests-retry.txt"
+  adb shell dumpsys window | grep -E "mCurrentFocus|mFocusedApp" | tee -a "$OUT/connected-tests-retry.txt" || true
+  mv "$OUT/connected-tests.txt" "$OUT/connected-tests-attempt1.txt"
+  adb shell input keyevent 3 || true
+  adb shell am broadcast -a android.intent.action.CLOSE_SYSTEM_DIALOGS >/dev/null 2>&1 || true
+  sleep 10
+  status=0
+  ./gradlew connectedDebugAndroidTest --console=plain 2>&1 | tee "$OUT/connected-tests.txt" || status=$?
+fi
 find app/build/outputs/androidTest-results -name 'TEST-*.xml' -exec cp {} "$OUT/" \; || true
 [ "$status" -eq 0 ] || { echo "Testes instrumentados falharam"; exit "$status"; }
 
