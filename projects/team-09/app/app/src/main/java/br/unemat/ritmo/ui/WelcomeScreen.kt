@@ -34,10 +34,8 @@ fun WelcomeScreen(
         Brand()
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text("MENOS PRESSA. MAIS PRESENÇA.", style = MaterialTheme.typography.labelSmall, color = Muted)
-            Text("Estude no
-seu ritmo.", style = MaterialTheme.typography.headlineLarge)
-            Text("Uma sessão de cada vez.
-Transforme alguns minutos livres em um plano de estudo possível.",
+            Text("Estude no\nseu ritmo.", style = MaterialTheme.typography.headlineLarge)
+            Text("Uma sessão de cada vez.\nTransforme alguns minutos livres em um plano de estudo possível.",
                 style = MaterialTheme.typography.bodyLarge, color = Muted)
         }
         FocusCard()

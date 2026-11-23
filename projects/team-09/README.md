@@ -21,15 +21,16 @@ Estudantes universitários, incluindo alunos da UNEMAT, que estudam em intervalo
 
 | Função | Onde fica | SPEC |
 | --- | --- | --- |
-| Tela inicial com a proposta do app | Tela inicial | [SPEC-001](docs/specs/SPEC-001.md) |
-| Duração digitada (5 a 180 min), com atalhos de 15, 25, 45 e 60 min | Tela inicial | [SPEC-002](docs/specs/SPEC-002.md), [SPEC-006](docs/specs/SPEC-006.md) |
-| Navegação para Seu plano e volta com os dados preservados | Tela inicial ↔ Seu plano | [SPEC-003](docs/specs/SPEC-003.md) |
-| Assunto (obrigatório) e objetivo (opcional), com validação | Tela inicial | [SPEC-004](docs/specs/SPEC-004.md) |
-| Histórico salvo no aparelho, com totais, Excluir (com Desfazer) e Ver todas | Tela inicial | [SPEC-005](docs/specs/SPEC-005.md) |
-| Meta da semana, ajustável de 30 em 30 min | Tela inicial | [SPEC-006](docs/specs/SPEC-006.md) |
-| Cronômetro em regressiva (Começar, Pausar, Continuar, Recomeçar) | Seu plano | [SPEC-006](docs/specs/SPEC-006.md) |
-| Aviso de fim da sessão por notificação, mesmo com o app fechado | Seu plano | [SPEC-006](docs/specs/SPEC-006.md) |
-| Qualidade final: regressão completa, sem travamentos | — | [SPEC-007](docs/specs/SPEC-007.md) |
+| Três abas na parte de baixo: Planejar, Cronômetro e Histórico | Barra inferior | [SPEC-007](docs/specs/SPEC-007.md) |
+| Tela inicial com a proposta do app | Planejar | [SPEC-001](docs/specs/SPEC-001.md) |
+| Duração digitada (5 a 180 min), com atalhos de 15, 25, 45 e 60 min | Planejar | [SPEC-002](docs/specs/SPEC-002.md), [SPEC-006](docs/specs/SPEC-006.md) |
+| Assunto (obrigatório) e objetivo (opcional), com validação | Planejar | [SPEC-004](docs/specs/SPEC-004.md) |
+| Plano da sessão, aberto por Planejar meu estudo | Cronômetro | [SPEC-003](docs/specs/SPEC-003.md) |
+| Cronômetro em regressiva (Começar, Pausar, Continuar, Recomeçar) que continua contando ao trocar de aba ou fechar o app e só para no Pausar | Cronômetro | [SPEC-006](docs/specs/SPEC-006.md), [SPEC-007](docs/specs/SPEC-007.md) |
+| Alarme no fim do tempo, marcado sozinho ao começar: toca por até 1 minuto ou até tocar em Parar | Cronômetro e notificação | [SPEC-007](docs/specs/SPEC-007.md) |
+| Contagem regressiva na notificação, com Pausar e Continuar | Notificação | [SPEC-007](docs/specs/SPEC-007.md) |
+| Histórico salvo no aparelho, com totais, Excluir (com Desfazer) e Ver todas | Histórico | [SPEC-005](docs/specs/SPEC-005.md) |
+| Meta da semana, ajustável de 30 em 30 min | Histórico | [SPEC-006](docs/specs/SPEC-006.md) |
 
 ![Tela inicial](evidence/sprint-07/final-home.png)
 
@@ -38,8 +39,8 @@ Estudantes universitários, incluindo alunos da UNEMAT, que estudam em intervalo
 - Kotlin 2.1.20 e Jetpack Compose (Material 3)
 - Navigation Compose 2.8.9
 - Room 2.7.1 (histórico) e SharedPreferences (meta da semana)
-- WorkManager 2.10.0 e notificações do Android (aviso de fim)
-- Testes: JUnit, Compose UI Test, Espresso, UiAutomator e WorkManager Testing
+- AlarmManager e notificações do Android (alarme do fim e contagem na notificação)
+- Testes: JUnit, Compose UI Test, Espresso e UiAutomator
 - Android Gradle Plugin 8.9.1 e Gradle 8.11.1 (wrapper incluído)
 - GitHub Actions para compilar, testar no emulador e gerar as capturas
 
@@ -65,12 +66,14 @@ No Linux ou macOS, use `./gradlew` com os mesmos argumentos.
 
 - Nenhuma chave de API, conta ou internet: tudo roda no aparelho.
 - O `local.properties` (caminho do SDK) é criado pelo Android Studio e não vai para o repositório.
-- No Android 13 ou superior, o aviso de fim pede a permissão de notificação na primeira vez. Sem ela, o restante do app funciona normalmente.
+- No Android 13 ou superior, o app pede a permissão de notificação na primeira vez que o cronômetro começa. Sem ela, o cronômetro funciona, mas o alarme não toca.
+- O alarme usa a permissão de alarme exato (`USE_EXACT_ALARM`), concedida na instalação.
 
 ## Limitações conhecidas
 
-- O aviso de fim usa o WorkManager e pode atrasar alguns minutos no modo de economia de energia. Alarme exato exigiria a permissão especial `SCHEDULE_EXACT_ALARM`.
-- Ao sair do plano, o cronômetro da tela é descartado. Um aviso já marcado continua valendo; marcar outro substitui o anterior.
+- Se o app for forçado a parar nas configurações do Android, ou se o celular for reiniciado, o alarme marcado é apagado pelo sistema. Ao abrir o Ritmo de novo, o cronômetro volta no tempo certo e o alarme é remarcado. Fechar o app pela tela de apps recentes não afeta o alarme.
+- No Android 7 (API 24 e 25), o som do alarme se repete até a notificação ser fechada, sem o limite de 1 minuto.
+- Só existe uma sessão por vez: planejar outra com o cronômetro já começado pede confirmação e descarta o cronômetro anterior.
 - As sessões não podem ser editadas, só excluídas.
 - Os dados ficam apenas no aparelho: não há login nem sincronização, e desinstalar o app apaga o histórico.
 - O app está só em português.
@@ -103,5 +106,5 @@ Sprints 00 a 03: utilizamos o Codex na especificação, geração de código, co
 - [Navigation Compose](https://developer.android.com/develop/ui/compose/navigation)
 - [Text fields em Compose](https://developer.android.com/develop/ui/compose/text/user-input)
 - [Room](https://developer.android.com/training/data-storage/room)
-- [WorkManager](https://developer.android.com/develop/background-work/background-tasks/persistent)
+- [Alarmes (AlarmManager)](https://developer.android.com/develop/background-work/services/alarms)
 - [Permissão de notificação](https://developer.android.com/develop/ui/views/notifications/notification-permission)
